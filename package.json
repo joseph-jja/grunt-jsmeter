@@ -1,0 +1,25 @@
+{
+  "name": "grunt-jsmeter",
+  "version": "0.1.0",
+  "description": "Grunt plugin to run jsmeter to get metrics out of the code quality",
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "grunt-init": "~0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joseph-jja/grunt-jsmeter.git"
+  },
+  "author": "Joe Acosta",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/joseph-jja/grunt-jsmeter/issues"
+  }
+}
