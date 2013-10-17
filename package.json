@@ -9,7 +9,11 @@
   "dependencies": {
     "grunt-init": "~0.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-contrib-jasmine": "~0.5.2", 
+    "grunt-jsbeautifier": "~0.2.2",
+    "grunt-template-jasmine-istanbul": "~0.2.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
