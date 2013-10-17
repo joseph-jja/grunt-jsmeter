@@ -18,9 +18,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('jsmeter', 'Grunt plugin to run jsmeter to get metrics out of the code quality', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var data, options; 
-    options = this.options({
-      punctuation: '.',
-      separator: ', '
+    options = this.options({ 
+      dest: 'console'
     });
 
     // Iterate over all specified file groups.
