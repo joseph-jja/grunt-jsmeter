@@ -7,11 +7,16 @@
     "test": "test"
   },
   "dependencies": {
-    "grunt-init": "~0.2.1"
+    "grunt-init": "~0.2.1",
+    "jsmeter": "1.0.15"
   },
   "devDependencies": {
     "grunt-contrib-jasmine": "~0.5.2",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-clean": "~0.5.0",
     "grunt-jsbeautifier": "~0.2.2",
+    "grunt": "~0.4.0",
+    "grunt-cli": "~0.1.9",
     "grunt-template-jasmine-istanbul": "~0.2.5"
   },
   "scripts": {

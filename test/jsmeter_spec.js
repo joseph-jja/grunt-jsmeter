@@ -1,8 +1,8 @@
-'use strict';
+var grunt = require("grunt"),
+    should = require("should"),
+    _ = grunt.util._;
 
-var grunt = require('grunt');
-
-var JSMeterTask = require("../lib/jsMeterTask");
+var JSMeterTask = require("../lib/JSMeterTask");
 
 describe("JSMeterTask test", function() {
 
