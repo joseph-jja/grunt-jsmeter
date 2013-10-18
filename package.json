@@ -18,8 +18,7 @@
     "jasmine-node": "~0.1.0",
     "grunt-jasmine-node": "~1.11.0",
     "grunt": "~0.4.0",
-    "grunt-cli": "~0.1.9",
-    "grunt-template-jasmine-istanbul": "~0.2.5"
+    "grunt-cli": "~0.1.9"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
