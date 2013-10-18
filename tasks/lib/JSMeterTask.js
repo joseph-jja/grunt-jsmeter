@@ -15,7 +15,7 @@ function JSMeterTask(task) {
 JSMeterTask.prototype = {
     // Get the party started.
     run: function() {
- 		var meter, options;
+ 		var meter, options, result, i;
  		
  		options = this.options;
 
@@ -41,11 +41,16 @@ JSMeterTask.prototype = {
 				return grunt.file.read(filepath);
 			});
 			
-			console.log("here " + options.dest);
-			if ( options.dest === 'console' ) { 
+            result = meter.run(src);
+			
+			//console.log("here " + options.dest);
+			if ( ! options.dest || options.dest === 'console' ) { 
+				//for (var j = 0; j < result.length; j++) {
+ 				//	console.log(result[j].name);
+ 				//}
  				console.log(src);
  			} else {
- 			//	grunt.file.write(options.dest + "/" + src + "log", src);
+ 			//	grunt.file.write(options.dest + "/" + src + "log", result);
  			}
  		});
     }

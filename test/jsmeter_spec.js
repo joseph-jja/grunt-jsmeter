@@ -9,7 +9,7 @@ describe("JSMeterTask test", function() {
         return {
             _taskOptions: { dest: "console" },
             filesSrc: {
-                src: [ "package.json", "Gruntfile.js", "tasks/**/*.js", "test/**/*.js" ]
+                src: [ "tasks/**/*.js", "lib/**/*.js" ]
             },
             options: function(defs) { return _.defaults(this._taskOptions, defs); },
             async: function() {
