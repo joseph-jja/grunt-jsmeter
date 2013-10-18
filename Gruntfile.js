@@ -50,11 +50,17 @@ module.exports = function(grunt) {
     },
 
     // Unit tests.
-    jasmine: {
-        src: [ 'lib/JSMeterTask.js' ],
-        options: {
-        	specs: [ 'test/*_spec.js'] 
-        }
+    jasmine_node: {
+        specNameMatcher: ".*_spec*", // load only specs containing specNameMatcher
+		projectRoot: ".",
+		requirejs: false,
+		forceExit: true,
+		jUnit: {
+		  report: false,
+		  savePath : "./log/reports/jasmine/",
+		  useDotNotation: true,
+		  consolidate: true
+		}
     },
 
   });
@@ -65,11 +71,11 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-jasmine-node');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'jasmine']);
+  grunt.registerTask('test', ['clean', 'jasmine_node']);
 
   // By default, lint and run all tests.
   //grunt.registerTask('default', ['jshint', 'test']);
