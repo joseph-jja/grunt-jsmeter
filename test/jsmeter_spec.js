@@ -1,7 +1,7 @@
 var grunt = require("grunt"),
     _ = grunt.util._;
 
-var JSMeterTask = require("../lib/JSMeterTask");
+var JSMeterTask = require("../tasks/lib/JSMeterTask");
 
 describe("JSMeterTask test", function() {
 
@@ -28,8 +28,12 @@ describe("JSMeterTask test", function() {
     });
  
     it("loads options from a task", function() {
-        var task = new JSMeterTask(makeMockTask()),
-            actual = task.options;
+        var mock, task, files, actual;
+        
+        mock = makeMockTask();
+        files = mock.filesSrc;
+        task = new JSMeterTask(mock, mock, files);
+        actual = task.options;
  
         expect(actual).toNotEqual(undefined);
  
@@ -49,11 +53,11 @@ describe("JSMeterTask test", function() {
     });
 
     it("run JSMeterTask and output to file", function() {
-        var mockTask, task; 
+        var mock, files, task; 
         
-        mockTask = makeMockTask();
-        //mockTask['dest'] = "log/jsmeter";
-        task = new JSMeterTask(mockTask);
+        mock = makeMockTask();
+        files = mock.filesSrc;
+        task = new JSMeterTask(mock, mock, files.src);
          
         spyOn(task, 'run').andCallThrough();
         task.run();

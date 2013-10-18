@@ -5,7 +5,7 @@ function LogRender() {
 
     this.logfile = "log/jsmeter.log";
 
-};
+}
 
 LogRender.prototype.setFilename = function(filename) {
     this.logfile = filename;

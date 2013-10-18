@@ -6,7 +6,7 @@ function JSMeterTask(task, options, sources, dest) {
     this.options = options; 
     this.sources = sources;
     this.dest = dest;
-};
+}
 
 JSMeterTask.prototype.run = function() {
 
