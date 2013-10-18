@@ -13,6 +13,7 @@ describe("JSMeterTask test", function() {
             filesSrc: {
                 src: [ "tasks/**/*.js", "tasks/lib/**/*.js" ]
             },
+            dest: 'console',
             options: function(defs) { return _.defaults(this._taskOptions, defs); },
             async: function() {
                 return done;
@@ -33,13 +34,12 @@ describe("JSMeterTask test", function() {
         var mock, task, files, actual;
         
         mock = makeMockTask();
-        files = grunt.file.expand({}, mock.filesSrc);
+        files = grunt.file.expand({}, mock.filesSrc.src);
         task = new JSMeterTask(mock, mock, files);
         actual = task.options;
- 
         expect(actual).toNotEqual(undefined);
  
-        expect(actual.dest).toEqual(JSMeterTask.Defaults.dest);
+        expect(actual.dest).toEqual(task.Defaults.dest);
     });
 
     it("run JSMeterTask ", function() {
@@ -47,7 +47,7 @@ describe("JSMeterTask test", function() {
         
         mock = makeMockTask();
         files = grunt.file.expand({}, mock.filesSrc);
-        task = new JSMeterTask(mock, mock, files.src);
+        task = new JSMeterTask(mock, mock, files);
         console.log(files); 
         spyOn(task, 'run').andCallThrough();
         task.run();
