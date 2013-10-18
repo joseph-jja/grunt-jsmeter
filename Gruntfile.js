@@ -13,11 +13,11 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     jshint: {
-      all: [
-        'Gruntfile.js',
-        'lib/*.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>',
+      files: [
+          "package.json", 
+          "Gruntfile.js", 
+          "tasks/**/*.js", 
+          "test/**/*.js"
       ],
       options: {
         jshintrc: '.jshintrc',
@@ -33,34 +33,30 @@ module.exports = function(grunt) {
     jsmeter: {
       default_options: {
         options: {
+            dest: 'console'
         },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
+        files: '<%= jshint.all %>'
       },
       custom_options: {
         options: {
-          separator: ': ',
-          punctuation: ' !!!',
+            dest: 'log/jsmeter'
         },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
+        files: '<%= jshint.all %>'
       },
     },
 
     // Unit tests.
     jasmine_node: {
         specNameMatcher: ".*_spec*", // load only specs containing specNameMatcher
-		projectRoot: ".",
-		requirejs: false,
-		forceExit: true,
-		jUnit: {
-		  report: false,
-		  savePath : "./log/reports/jasmine/",
-		  useDotNotation: true,
-		  consolidate: true
-		}
+        projectRoot: ".",
+        requirejs: false,
+        forceExit: true,
+        jUnit: {
+          report: false,
+          savePath : "./log/reports/jasmine/",
+          useDotNotation: true,
+          consolidate: true
+        }
     },
 
   });
@@ -78,7 +74,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['clean', 'jasmine_node']);
 
   // By default, lint and run all tests.
-  //grunt.registerTask('default', ['jshint', 'test']);
-  grunt.registerTask('default', ['test']);
+  grunt.registerTask('default', ['jshint', 'test']);
 
 };
