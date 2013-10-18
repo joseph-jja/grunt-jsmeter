@@ -5,11 +5,12 @@ ConsoleRender.prototype.setFilename = function(filename) {};
 
 ConsoleRender.prototype.writeResults = function(jsmeterResult) {
 
-    var name, resultData = "", result;
+    var name, resultData = "", result, j, len;
     
     result = jsmeterResult;
+    len = result.length;
     
-    for (var j = 0; j < result.length; j++) {
+    for (j = 0; j < len; j+=1) {
      
         resultData += " line start: " + result[j].lineStart + "\n";
         name = ( result[j].name ) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;

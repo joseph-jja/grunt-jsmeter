@@ -2,8 +2,8 @@ var JSMeterTask = require("./lib/JSMeterTask");
 
 module.exports = function(grunt) {
 
-	grunt.registerMultiTask(JSMeterTask.taskName, JSMeterTask.taskDescription, function() {
-    	var meter, sources, destDir;
+    grunt.registerMultiTask(JSMeterTask.taskName, JSMeterTask.taskDescription, function() {
+        var meter, sources, destDir;
                 
         sources = this.data.src;
         destDir = this.data.dest;

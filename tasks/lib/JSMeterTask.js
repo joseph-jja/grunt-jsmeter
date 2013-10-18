@@ -11,7 +11,7 @@ function JSMeterTask(task, options, sources, dest) {
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"), writer, outputfile, dest,
-        render = ( this.dest === 'console' ) ? require("./ConsoleRender") : require("./LogRender");;
+        Render = ( this.dest === 'console' ) ? require("./ConsoleRender") : require("./LogRender");
     
     dest = this.dest;
     if ( ! this.sources ) { 
@@ -20,17 +20,16 @@ JSMeterTask.prototype.run = function() {
     }
     meter = jsmeter['jsmeter'];
     
-    writer = new render();
+    writer = new Render();
     this.sources.forEach(function(f) {
         var data, results; 
         
         data = grunt.file.read(f);
         results = meter.run(data);
-	    if ( dest !== 'console' ) {
-    	    outputfile = dest + "/" + f.substring(f.lastIndexOf("/") + 1) + ".log";
+        if ( dest !== 'console' ) {
+            outputfile = dest + "/" + f.substring(f.lastIndexOf("/") + 1) + ".log";
             writer.setFilename(outputfile);
-    	}
-    	console.log(dest);
+        }
         writer.writeResults(results); 
  
     });
