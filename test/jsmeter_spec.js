@@ -1,11 +1,11 @@
 var grunt = require("grunt"),
     _ = grunt.util._;
 
-var JSMeterTask = require("../tasks/lib/JSMeterTask");
-
-var jsmeter = require("../tasks/jsmeter");
-
 describe("JSMeterTask test", function() {
+
+    var JSMeterTask = require("../tasks/lib/JSMeterTask");
+
+    var jsmeter = require("../tasks/jsmeter");
 
     var makeMockTask = function(done) {
         return {
@@ -20,6 +20,13 @@ describe("JSMeterTask test", function() {
             }
         };
     };
+    
+    it("test node require includes", function() {
+    
+        expect(jsmeter).toNotEqual(undefined);
+        expect(JSMeterTask).toNotEqual(undefined);
+    
+    });
     
     it("registers itself with grunt", function() {
         

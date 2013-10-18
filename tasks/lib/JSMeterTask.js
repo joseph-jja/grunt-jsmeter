@@ -10,7 +10,7 @@ function JSMeterTask(task, options, sources, dest) {
         dest: 'console'
     };
 
-    this.dest = ( dest ) ? this.Defaults.dest: dest;
+    this.dest = ( ! dest ) ? this.Defaults.dest: dest;
 }
 
 JSMeterTask.prototype.run = function() {

@@ -47,15 +47,20 @@ module.exports = function(grunt) {
 
     // Unit tests.
     jasmine_node: {
-        specNameMatcher: ".*_spec*", // load only specs containing specNameMatcher
-        projectRoot: ".",
-        requirejs: false,
-        forceExit: true,
-        jUnit: {
-          report: false,
-          savePath : "./log/reports/jasmine/",
-          useDotNotation: true,
-          consolidate: true
+        options: {
+            specNameMatcher: ".*_spec*", // load only specs containing specNameMatcher
+            projectRoot: ".",
+            requirejs: false,
+            forceExit: true,
+            jUnit: {
+                report: false,
+                savePath : "./jasmine/",
+                useDotNotation: true,
+                consolidate: true
+             }   
+        }, 
+        coverage: {
+            report: [ 'html' ]
         }
     },
 
@@ -68,6 +73,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-jasmine-node');
+  grunt.loadNpmTasks('grunt-jasmine-node-coverage');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
