@@ -46,7 +46,7 @@ describe("JSMeterTask test", function() {
         var mock, files, task; 
         
         mock = makeMockTask();
-        files = grunt.file.expand({}, mock.filesSrc);
+        files = grunt.file.expand({}, mock.filesSrc.src);
         task = new JSMeterTask(mock, mock, files);
         console.log(files); 
         spyOn(task, 'run').andCallThrough();
