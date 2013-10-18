@@ -3,13 +3,15 @@ var grunt = require("grunt"),
 
 var JSMeterTask = require("../tasks/lib/JSMeterTask");
 
+var jsmeter = require("../tasks/jsmeter");
+
 describe("JSMeterTask test", function() {
 
     var makeMockTask = function(done) {
         return {
             _taskOptions: { dest: "console" },
             filesSrc: {
-                src: [ "tasks/**/*.js", "lib/**/*.js" ]
+                src: [ "tasks/**/*.js", "tasks/lib/**/*.js" ]
             },
             options: function(defs) { return _.defaults(this._taskOptions, defs); },
             async: function() {
@@ -20,7 +22,7 @@ describe("JSMeterTask test", function() {
     
     it("registers itself with grunt", function() {
         
-        JSMeterTask.registerWithGrunt(grunt);
+        var meter = jsmeter(grunt);
  
         // Check that it registered
         expect(grunt.task._tasks[JSMeterTask.taskName]).toNotEqual(undefined);
@@ -31,7 +33,7 @@ describe("JSMeterTask test", function() {
         var mock, task, files, actual;
         
         mock = makeMockTask();
-        files = mock.filesSrc;
+        files = grunt.file.expand({}, mock.filesSrc);
         task = new JSMeterTask(mock, mock, files);
         actual = task.options;
  
@@ -40,25 +42,13 @@ describe("JSMeterTask test", function() {
         expect(actual.dest).toEqual(JSMeterTask.Defaults.dest);
     });
 
-    it("run JSMeterTask", function() {
-        var task = new JSMeterTask(makeMockTask());
-        
-        //grunt.config.set(makeMockTask());
-        
-        spyOn(task, 'run').andCallThrough();
-        //JSMeterTask.registerWithGrunt(grunt);
-        task.run();
-        expect(task.run).toHaveBeenCalled();
-    
-    });
-
-    it("run JSMeterTask and output to file", function() {
+    it("run JSMeterTask ", function() {
         var mock, files, task; 
         
         mock = makeMockTask();
-        files = mock.filesSrc;
+        files = grunt.file.expand({}, mock.filesSrc);
         task = new JSMeterTask(mock, mock, files.src);
-         
+        console.log(files); 
         spyOn(task, 'run').andCallThrough();
         task.run();
         expect(task.run).toHaveBeenCalled();

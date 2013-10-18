@@ -5,7 +5,12 @@ function JSMeterTask(task, options, sources, dest) {
     this.task = task; 
     this.options = options; 
     this.sources = sources;
-    this.dest = dest;
+    
+    this.Defaults = {
+        dest: 'console'
+    };
+
+    this.dest = ( dest ) ? this.Defaults.dest: dest;
 }
 
 JSMeterTask.prototype.run = function() {
@@ -36,10 +41,6 @@ JSMeterTask.prototype.run = function() {
     
 };
 
-JSMeterTask.Defaults = {
-    dest: 'console'
-};
- 
 // Some static task information
 JSMeterTask.taskName = "jsmeter";
 JSMeterTask.taskDescription = "Grunt plugin to run jsmeter to get metrics out of the code quality";
