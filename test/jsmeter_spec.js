@@ -1,5 +1,4 @@
 var grunt = require("grunt"),
-    should = require("should"),
     _ = grunt.util._;
 
 var JSMeterTask = require("../lib/JSMeterTask");
@@ -18,22 +17,21 @@ describe("JSMeterTask test", function() {
     };
     
     it("registers itself with grunt", function() {
-		should.exist(JSMeterTask.registerWithGrunt);
- 
+		
         JSMeterTask.registerWithGrunt(grunt);
  
         // Check that it registered
-        should.exist(grunt.task._tasks[JSMeterTask.taskName]);
-        grunt.task._tasks[JSMeterTask.taskName].info.should.equal(JSMeterTask.taskDescription);
+        expect(grunt.task._tasks[JSMeterTask.taskName]).toNotEqual(undefined);
+        expect(grunt.task._tasks[JSMeterTask.taskName].info).toEqual(JSMeterTask.taskDescription);
     });
  
     it("loads options from a task", function() {
         var task = new JSMeterTask(makeMockTask()),
             actual = task.options;
  
-        should.exist(actual);
+        expect(actual).toNotEqual(undefined);
  
-        actual.something.should.equal(JSMeterTask.Defaults.something);
+        expect(actual.dest).toEqual(JSMeterTask.Defaults.dest);
     });
 
 });
