@@ -1,22 +1,34 @@
 var grunt = require("grunt");
 
-function JSMeterTask(task, options, sources, dest) {
+function JSMeterTask(task, options, sources, dest, engine) {
 
     this.task = task; 
     this.options = options; 
     this.sources = sources;
     
     this.Defaults = {
-        dest: 'console'
+        dest: 'log',
+        engine: 'console'
     };
 
     this.dest = ( ! dest ) ? this.Defaults.dest: dest;
+    this.engine = ( ! engine ) ? this.Defaults.engine: engine;
 }
 
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"), writer, outputfile, dest,
-        Render = ( this.dest === 'console' ) ? require("./ConsoleRender") : require("./LogRender");
+        Render;
+
+    try {
+        Render = ( this.engine === 'console' ) ? require("./ConsoleRender") : require("./" + this.engine);
+        if ( ! Render ) { 
+            Render = require("./ConsoleRender");
+        }
+    } catch(e) { 
+       console.log(e);
+       Render = require("./ConsoleRender");
+    }
     
     dest = this.dest;
     if ( ! this.sources ) { 

@@ -9,11 +9,11 @@ describe("JSMeterTask test", function() {
 
     var makeMockTask = function(done) {
         return {
-            _taskOptions: { dest: "console" },
+            _taskOptions: { engine: "console" },
             filesSrc: {
                 src: [ "tasks/**/*.js", "tasks/lib/**/*.js" ]
             },
-            dest: 'console',
+            engine: 'console',
             options: function(defs) { return _.defaults(this._taskOptions, defs); },
             async: function() {
                 return done;
@@ -46,7 +46,7 @@ describe("JSMeterTask test", function() {
         actual = task.options;
         expect(actual).toNotEqual(undefined);
  
-        expect(actual.dest).toEqual(task.Defaults.dest);
+        expect(actual.engine).toEqual(task.Defaults.engine);
     });
 
     it("run JSMeterTask ", function() {
