@@ -25,23 +25,29 @@ In your project's Gruntfile, add a section named `jsmeter` to the data object pa
 ```js
 grunt.initConfig({
   jsmeter: {
-    options: {
+    data: {
       // Task-specific options go here.
     },
   },
 })
 ```
 
-### Options
+### Options / data
 
-#### options.dest
+#### data.src
+Type: `Array`
+Default value: `'log'`
+
+An array of files.
+
+#### data.dest
 Type: `String`
 Default value: `'log'`
 
 A string value that is used to identify the location output.  
 The default is log, but if the console render is used then this does nothing.
 
-#### options.engine
+#### data.engine
 Type: `String`
 Default value: `'console'`
 
@@ -57,9 +63,10 @@ So if the `testing` file has the content `Testing` and the `123` file had the co
 ```js
 grunt.initConfig({
   jsmeter: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    data: {
+      src: {
+        ['src/testing', 'src/123'],
+      }
     },
   },
 })
@@ -71,12 +78,12 @@ In this example, custom options are used to do something else with whatever else
 ```js
 grunt.initConfig({
   jsmeter: {
-    options: {
+    data: {
       dest: 'logs',
-      engine: 'LogRender'
-    },
-    files: {
-      'target/default_options': ['src/testing', 'src/123'],
+      engine: 'LogRender',
+      src: {
+        ['src/testing', 'src/123'],
+      }
     },
   },
 })
