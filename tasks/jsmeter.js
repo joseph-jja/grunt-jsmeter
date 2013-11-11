@@ -11,8 +11,8 @@ module.exports = function(grunt) {
             engine: 'console'
         });
         
-        //console.log(this);       
-        sources = this.data.src;
+        // get the source files this is an object of files
+        sources = this.files;
         
         meter = new JSMeterTask(this, options, sources);
         meter.run();

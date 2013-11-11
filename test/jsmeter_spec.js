@@ -10,7 +10,7 @@ describe("JSMeterTask test", function() {
     var makeMockTask = function(done) {
         return {
             _taskOptions: { engine: "console" },
-            filesSrc: {
+            files: {
                 src: [ "tasks/**/*.js", "tasks/lib/**/*.js" ]
             },
             engine: 'console',
@@ -41,11 +41,10 @@ describe("JSMeterTask test", function() {
         var mock, task, files, actual;
         
         mock = makeMockTask();
-        files = grunt.file.expand({}, mock.filesSrc.src);
-        task = new JSMeterTask(mock, mock, files);
+        task = new JSMeterTask(mock, mock, mock.options.files);
         actual = task.options;
+        
         expect(actual).toNotEqual(undefined);
- 
         expect(actual.engine).toEqual(task.Defaults.engine);
     });
 
@@ -53,8 +52,7 @@ describe("JSMeterTask test", function() {
         var mock, files, task; 
         
         mock = makeMockTask();
-        files = grunt.file.expand({}, mock.filesSrc.src);
-        task = new JSMeterTask(mock, mock, files);
+        task = new JSMeterTask(mock, mock, mock.options.files);
          
         spyOn(task, 'run').andCallThrough();
         task.run();
@@ -66,8 +64,7 @@ describe("JSMeterTask test", function() {
         var mock, files, task; 
         
         mock = makeMockTask();
-        files = grunt.file.expand({}, mock.filesSrc.src);
-        task = new JSMeterTask(mock, mock, files, 'logs');
+        task = new JSMeterTask(mock, mock, mock.options.files);
          
         spyOn(task, 'run').andCallThrough();
         task.run();

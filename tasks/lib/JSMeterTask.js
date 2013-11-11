@@ -29,7 +29,7 @@ JSMeterTask.prototype.run = function() {
        console.log(e);
        Render = require("./ConsoleRender");
     }
-    
+        
     dest = this.dest;
     if ( ! this.sources ) { 
         console.log("No files to meter!");
@@ -38,17 +38,23 @@ JSMeterTask.prototype.run = function() {
     meter = jsmeter['jsmeter'];
     
     writer = new Render();
+    console.log("before" + typeof this.sources.forEach);
+   
     this.sources.forEach(function(f) {
-        var data, results; 
-        
-        data = grunt.file.read(f);
-        results = meter.run(data);
-        if ( dest !== 'console' ) {
-            outputfile = dest + "/" + f.substring(f.lastIndexOf("/") + 1) + ".log";
-            writer.setFilename(outputfile);
+        var data, results, len, filename, i;
+
+        len = f.src.length; 
+
+        for ( i =0; i < len; i+=1 ) {
+            filename = f.src[i]; 
+            data = grunt.file.read(filename);
+            results = meter.run(data);
+            if ( this.engine !== 'console' ) {
+                outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
+                writer.setFilename(outputfile);
+            }
+            writer.writeResults(results); 
         }
-        writer.writeResults(results); 
- 
     });
     
 };
