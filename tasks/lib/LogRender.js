@@ -1,4 +1,3 @@
-
 var BaseRender = require("./BaseRender");
 var grunt = require("grunt");
 

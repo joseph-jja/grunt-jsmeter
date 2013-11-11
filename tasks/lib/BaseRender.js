@@ -1,19 +1,23 @@
+// this class does most of the hard work
+// inherit from this class and you can create a custom render engine 
+// then you only overwrite the methods that you want to change
 function BaseRender() {
     this.filename = "";
 }
 
+// set a filename
 BaseRender.prototype.setFilename = function(filename) {
     this.filename = filename;
 };
 
-// override for different formatting
+// set the formatting of a line
 BaseRender.prototype.writeline = function(name, value) {
 
     return name + ": " + value;
 
 };
 
-// override for different processing
+// setup the way the results will be processed
 BaseRender.prototype.processResults = function(jsmeterResult) {
 
     var name, resultData = "", result, j, len;
@@ -42,6 +46,7 @@ BaseRender.prototype.processResults = function(jsmeterResult) {
     return resultData;        
 };
 
+// write the results, override this to write to log file
 BaseRender.prototype.writeResults = function(jsmeterResult) { 
 
     console.log(this.processResults(jsmeterResult));
