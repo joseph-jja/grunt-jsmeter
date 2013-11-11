@@ -36,10 +36,17 @@ grunt.initConfig({
 
 #### options.dest
 Type: `String`
+Default value: `'log'`
+
+A string value that is used to identify the location output.  
+The default is log, but if the console render is used then this does nothing.
+
+#### options.engine
+Type: `String`
 Default value: `'console'`
 
-A string value that is used to identify the renderer or output.  
-The default is console.  If this is set to anything other than console, then it is assumed to be a log directory.
+A string value that is used to identify the engine to render the output.  
+The default is console.  Alternative renders available are LogRender.
 
 ### Usage Examples
 
@@ -65,7 +72,8 @@ In this example, custom options are used to do something else with whatever else
 grunt.initConfig({
   jsmeter: {
     options: {
-      dest: 'logs'
+      dest: 'logs',
+      engine: 'LogRender'
     },
     files: {
       'target/default_options': ['src/testing', 'src/123'],
