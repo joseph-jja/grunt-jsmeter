@@ -1,6 +1,6 @@
 var grunt = require("grunt");
 
-function JSMeterTask(task, options, sources, dest, engine) {
+function JSMeterTask(task, options, sources) {
 
     this.task = task; 
     this.options = options; 
@@ -11,8 +11,8 @@ function JSMeterTask(task, options, sources, dest, engine) {
         engine: 'console'
     };
 
-    this.dest = ( ! dest ) ? this.Defaults.dest: dest;
-    this.engine = ( ! engine ) ? this.Defaults.engine: engine;
+    this.dest = ( ! options.dest ) ? this.Defaults.dest: options.dest;
+    this.engine = ( ! options.engine ) ? this.Defaults.engine: options.engine;
 }
 
 JSMeterTask.prototype.run = function() {
