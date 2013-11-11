@@ -28,31 +28,24 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
   },
 })
 ```
 
 ### Options
 
-#### options.separator
+#### options.dest
 Type: `String`
-Default value: `',  '`
+Default value: `'console'`
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+A string value that is used to identify the renderer or output.  
+The default is console.  If this is set to anything other than console, then it is assumed to be a log directory.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to do something with whatever. 
+So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
 
 ```js
 grunt.initConfig({
@@ -72,18 +65,19 @@ In this example, custom options are used to do something else with whatever else
 grunt.initConfig({
   jsmeter: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      dest: 'logs'
     },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'target/default_options': ['src/testing', 'src/123'],
     },
   },
 })
 ```
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+In lieu of a formal styleguide, take care to maintain the existing coding style. 
+This project uses jshint and jasmine node tests.
+Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 _(Nothing yet)_
