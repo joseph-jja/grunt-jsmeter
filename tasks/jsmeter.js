@@ -10,8 +10,9 @@ module.exports = function(grunt) {
             dest: 'log',
             engine: 'console'
         });
-                
-        sources = this.files.src;
+        
+        //console.log(this);       
+        sources = this.data.src;
         
         meter = new JSMeterTask(this, options, sources);
         meter.run();
