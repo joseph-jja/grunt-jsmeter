@@ -65,7 +65,7 @@ So if the `testing` file has the content `Testing` and the `123` file had the co
 ```js
 grunt.initConfig({
   jsmeter: {
-    data: {
+    files: {
       src: {
         ['src/testing', 'src/123'],
       }
@@ -80,7 +80,7 @@ In this example, custom options are used to do something else with whatever else
 ```js
 grunt.initConfig({
   jsmeter: {
-    data: {
+    files: {
       src: {
         ['src/testing', 'src/123'],
       }
