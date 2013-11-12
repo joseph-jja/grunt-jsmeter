@@ -18,19 +18,19 @@ LogRender.prototype.getFileExtension = function() {
 };
 
 LogRender.prototype.writeline = function(name, value) {
-	var leadingSpace = "";
-	
-	if ( name !== "name" ) { 
-		leadingSpace = " ";
-	}
+    var leadingSpace = "";
 
-	return leadingSpace + name + ": ", + value + "\n";
+    if (name !== "name") {
+        leadingSpace = " ";
+    }
+
+    return leadingSpace + name + ": ", +value + "\n";
 
 };
 
-LogRender.prototype.writeResults = function(jsmeterResult) { 
+LogRender.prototype.writeResults = function(jsmeterResult) {
 
-    grunt.file.write(this.logfile, this.processResults(jsmeterResult) );        
+    grunt.file.write(this.logfile, this.processResults(jsmeterResult));
 };
 
 module.exports = LogRender;
