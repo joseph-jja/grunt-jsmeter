@@ -3,14 +3,18 @@ var grunt = require("grunt");
 
 function LogRender() {
 
-    this.logfile = "log/jsmeter.log";
-
+    this.ext = ".log";
 }
 
 LogRender.prototype = new BaseRender();
 
 LogRender.prototype.setFilename = function(filename) {
     this.logfile = filename;
+};
+
+// get set file extension
+LogRender.prototype.getFileExtension = function() {
+    return this.ext;
 };
 
 LogRender.prototype.writeline = function(name, value) {

@@ -3,11 +3,17 @@
 // then you only overwrite the methods that you want to change
 function BaseRender() {
     this.filename = "";
+    this.ext = "";
 }
 
 // set a filename
 BaseRender.prototype.setFilename = function(filename) {
     this.filename = filename;
+};
+
+// get set file extension
+BaseRender.prototype.getFileExtension = function() {
+    return this.ext;
 };
 
 // set the formatting of a line

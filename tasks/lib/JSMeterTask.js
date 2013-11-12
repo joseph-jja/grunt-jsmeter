@@ -38,7 +38,6 @@ JSMeterTask.prototype.run = function() {
     meter = jsmeter['jsmeter'];
     
     writer = new Render();
-    console.log("before" + typeof this.sources.forEach);
    
     this.sources.forEach(function(f) {
         var data, results, len, filename, i;
@@ -48,6 +47,7 @@ JSMeterTask.prototype.run = function() {
         for ( i =0; i < len; i+=1 ) {
             filename = f.src[i]; 
             data = grunt.file.read(filename);
+            // hmm this line sometimes has an exception and returns undefines?
             results = meter.run(data);
             if ( this.engine !== 'console' ) {
                 outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
