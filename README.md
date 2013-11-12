@@ -34,7 +34,7 @@ grunt.initConfig({
 
 ### Files 
 
-#### data.src
+#### files.src
 Type: `Array`
 Default value: `[]`
 
