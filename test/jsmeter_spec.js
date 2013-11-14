@@ -34,7 +34,7 @@ describe("JSMeterTask test", function() {
 
     it("registers itself with grunt", function() {
 
-        var meter = jsmeter(grunt);
+        jsmeter(grunt);
 
         // Check that it registered
         expect(grunt.task._tasks[JSMeterTask.taskName]).toNotEqual(undefined);
