@@ -8,8 +8,7 @@
     },
     "dependencies": {
         "grunt-init": "~0.2.1",
-        "jsmeter": "1.0.15",
-        "handlebars": "1.1.2"
+        "jsmeter": "1.0.15"
     },
     "devDependencies": {
         "grunt-contrib-jasmine": "~0.5.2",
