@@ -10,6 +10,8 @@
 
 module.exports = function(grunt) {
 
+	var gruntSupport = GruntSupport(grunt);
+	
     // Project configuration.
     grunt.initConfig({
         jshint: {
@@ -31,6 +33,16 @@ module.exports = function(grunt) {
 
         jsbeautifier: {
             files: '<%= jshint.files %>'
+        },
+
+        handlebars: {
+            compile: {
+                options: {
+                    namespace: 'GJSM',
+                    node: true
+                },
+                files: gruntSupport.getFileMap('tasks/templates')
+            }
         },
 
         // Configuration to be run (and then tested).
@@ -79,6 +91,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-jasmine-node-coverage');
     grunt.loadNpmTasks('grunt-jsbeautifier');
+    grunt.loadNpmTasks('grunt-contrib-handlebars');
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
@@ -87,4 +100,26 @@ module.exports = function(grunt) {
     // By default, lint and run all tests.
     grunt.registerTask('default', ['jsbeautifier', 'jshint', 'test']);
 
+};
+
+function GruntSupport(grunt) {
+
+     var ext = "tmpl", outExt = "js";
+     
+     function getFileMap(baseDir) {
+		var sources = { }, key;
+        
+        grunt.file.recurse(baseDir, function(abspath, rootdir, subdir, filename) { 
+        
+        	if ( filename.substring(filename.length-ext.length) === ext ) {
+        		key = abspath.replace(ext, outExt);
+        	 	sources[key] = abspath;
+        	}
+    
+        });
+        
+        return sources;
+    };
+
+    return { getFileMap: getFileMap };
 };
