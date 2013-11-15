@@ -8,10 +8,35 @@
 
 'use strict';
 
+function GruntSupport(grunt) {
+
+    var ext = "tmpl",
+        outExt = "js";
+
+    function getFileMap(baseDir) {
+        var sources = {}, key;
+
+        grunt.file.recurse(baseDir, function(abspath, rootdir, subdir, filename) {
+
+            if (filename.substring(filename.length - ext.length) === ext) {
+                key = abspath.replace(ext, outExt);
+                sources[key] = abspath;
+            }
+
+        });
+
+        return sources;
+    }
+
+    return {
+        getFileMap: getFileMap
+    };
+}
+
 module.exports = function(grunt) {
 
-	var gruntSupport = GruntSupport(grunt);
-	
+    var gruntSupport = new GruntSupport(grunt);
+
     // Project configuration.
     grunt.initConfig({
         jshint: {
@@ -41,7 +66,7 @@ module.exports = function(grunt) {
                     namespace: 'GJSM',
                     node: true
                 },
-                files: gruntSupport.getFileMap('tasks/templates')
+                files: gruntSupport.getFileMap('templates')
             }
         },
 
@@ -100,26 +125,4 @@ module.exports = function(grunt) {
     // By default, lint and run all tests.
     grunt.registerTask('default', ['jsbeautifier', 'jshint', 'test']);
 
-};
-
-function GruntSupport(grunt) {
-
-     var ext = "tmpl", outExt = "js";
-     
-     function getFileMap(baseDir) {
-		var sources = { }, key;
-        
-        grunt.file.recurse(baseDir, function(abspath, rootdir, subdir, filename) { 
-        
-        	if ( filename.substring(filename.length-ext.length) === ext ) {
-        		key = abspath.replace(ext, outExt);
-        	 	sources[key] = abspath;
-        	}
-    
-        });
-        
-        return sources;
-    };
-
-    return { getFileMap: getFileMap };
 };
