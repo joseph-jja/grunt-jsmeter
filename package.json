@@ -9,12 +9,13 @@
     "dependencies": {
         "grunt-init": "~0.2.1",
         "jsmeter": "1.0.15",
-        "grunt-contrib-handlebars": "0.6.0"
+        "handlebars": "1.1.2"
     },
     "devDependencies": {
         "grunt-contrib-jasmine": "~0.5.2",
         "grunt-contrib-jshint": "~0.6.4",
         "grunt-contrib-clean": "~0.5.0",
+        "grunt-contrib-handlebars": "0.6.0",
         "grunt-jsbeautifier": "~0.2.2",
         "jasmine-node": "~1.11.0",
         "grunt-jasmine-node": "~0.1.0",
