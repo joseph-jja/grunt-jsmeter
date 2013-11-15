@@ -1,5 +1,7 @@
 var BaseRender = require("./BaseRender");
 var grunt = require("grunt");
+var page = require("../../templates/page");
+var row = require("../../templates/row");
 
 function HTMLRender() {
 
@@ -18,19 +20,19 @@ HTMLRender.prototype.getFileExtension = function() {
 };
 
 HTMLRender.prototype.writeline = function(name, value) {
-    var leadingSpace = "";
 
-    if (name !== "name") {
-        leadingSpace = " ";
-    }
-
-    return leadingSpace + name + ": " + value;
-
+	var data = row["templates/row.tmpl"]({
+        'name': name,
+        'value': value
+    });
+    
+    return data;
 };
 
 HTMLRender.prototype.writeResults = function(jsmeterResult) {
+    var tableData = this.processResults(jsmeterResult);
 
-    grunt.file.write(this.logfile, this.processResults(jsmeterResult));
+    grunt.file.write(this.logfile, tableData);
 };
 
 module.exports = HTMLRender;
