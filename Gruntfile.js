@@ -123,6 +123,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'jasmine_node']);
 
     // By default, lint and run all tests.
-    grunt.registerTask('default', ['jsbeautifier', 'jshint', 'test']);
+    grunt.registerTask('default', ['handlebars', 'jsbeautifier', 'jshint', 'test']);
 
 };
