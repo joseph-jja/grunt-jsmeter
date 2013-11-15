@@ -24,7 +24,7 @@ LogRender.prototype.writeline = function(name, value) {
         leadingSpace = " ";
     }
 
-    return leadingSpace + name + ": ", +value + "\n";
+    return leadingSpace + name + ": " + value + "\n";
 
 };
 
