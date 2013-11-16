@@ -1,6 +1,7 @@
 var BaseRender = require("./BaseRender");
 var grunt = require("grunt");
 var page = require("../../templates/page");
+var cell = require("../../templates/cell");
 var row = require("../../templates/row");
 
 function HTMLRender() {
@@ -21,12 +22,32 @@ HTMLRender.prototype.getFileExtension = function() {
 
 HTMLRender.prototype.writeline = function(name, value) {
 
-    var data = row["templates/row.tmpl"]({
+    var data = cell["templates/cell.tmpl"]({
         'name': name,
         'value': value
     });
 
     return data;
+};
+
+HTMLRender.prototype.processResults = function(jsmeterResult) {
+
+    var name, resultData = "",
+        metered,
+        result, j, len;
+
+    result = jsmeterResult;
+    len = result.length;
+
+    for (j = 0; j < len; j += 1) {
+
+        metered = this.renderRow(result, j);
+        resultData += row["templates/row.tmpl"]({
+            'rowData': metered
+        });
+
+    }
+    return resultData;
 };
 
 HTMLRender.prototype.writeResults = function(jsmeterResult) {
