@@ -23,6 +23,28 @@ BaseRender.prototype.writeline = function(name, value) {
 
 };
 
+BaseRender.prototype.renderRow = function(result, j) {
+
+    var name, resultData;
+
+    resultData += this.writeline("line start", result[j].lineStart);
+    name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
+    resultData += this.writeline("name", name);
+    resultData += this.writeline("statements", result[j].s);
+    resultData += this.writeline("lines     ", result[j].lines);
+    resultData += this.writeline("comments  ", result[j].comments);
+    resultData += this.writeline("% comments  ", Math.round(result[j].comments / (result[j].lines) * 10000) / 100, "%");
+    resultData += this.writeline("branches", result[j].b);
+    resultData += this.writeline("depth", result[j].branchDepth);
+    resultData += this.writeline("complexity", result[j].complexity);
+    resultData += this.writeline("Halstead Volume", result[j].halsteadVolume);
+    resultData += this.writeline("Halstead Potential", result[j].halsteadPotential);
+    resultData += this.writeline("Program Level", result[j].halsteadLevel);
+    resultData += this.writeline("MI Volume", result[j].mi);
+
+    return resultData;
+};
+
 // setup the way the results will be processed
 BaseRender.prototype.processResults = function(jsmeterResult) {
 
@@ -34,20 +56,7 @@ BaseRender.prototype.processResults = function(jsmeterResult) {
 
     for (j = 0; j < len; j += 1) {
 
-        resultData += this.writeline("line start", result[j].lineStart);
-        name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
-        resultData += this.writeline("name", name);
-        resultData += this.writeline("statements", result[j].s);
-        resultData += this.writeline("lines     ", result[j].lines);
-        resultData += this.writeline("comments  ", result[j].comments);
-        resultData += this.writeline("% comments  ", Math.round(result[j].comments / (result[j].lines) * 10000) / 100, "%");
-        resultData += this.writeline("branches", result[j].b);
-        resultData += this.writeline("depth", result[j].branchDepth);
-        resultData += this.writeline("complexity", result[j].complexity);
-        resultData += this.writeline("Halstead Volume", result[j].halsteadVolume);
-        resultData += this.writeline("Halstead Potential", result[j].halsteadPotential);
-        resultData += this.writeline("Program Level", result[j].halsteadLevel);
-        resultData += this.writeline("MI Volume", result[j].mi);
+        resultData += this.renderRow(result, j);
 
     }
     return resultData;
