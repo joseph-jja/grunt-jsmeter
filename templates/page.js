@@ -18,7 +18,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.filename) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.filename); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n<table>\n";
+    + "\n<table>\n<tr>\n<td>name</td>\n<td>statements</td>\n<td>lines</td>\n<td>comments</td>\n<td>% comments</td>\n<td>branches</td>\n<td>depth</td>\n<td>complexity</td>\n<td>Halstead Volume</td>\n<td>Halstead Potential</td>\n<td>Program Level</td>\n<td>MI Volume</td>\n</tr>\n";
   if (stack1 = helpers.tableData) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.tableData); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }

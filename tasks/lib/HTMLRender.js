@@ -23,7 +23,6 @@ HTMLRender.prototype.getFileExtension = function() {
 HTMLRender.prototype.writeline = function(name, value) {
 
     var data = cell["templates/cell.tmpl"]({
-        'name': name,
         'value': value
     });
 

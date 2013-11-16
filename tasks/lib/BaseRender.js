@@ -25,7 +25,7 @@ BaseRender.prototype.writeline = function(name, value) {
 
 BaseRender.prototype.renderRow = function(result, j) {
 
-    var name, resultData;
+    var name, resultData = "";
 
     resultData += this.writeline("line start", result[j].lineStart);
     name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
