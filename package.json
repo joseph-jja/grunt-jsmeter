@@ -1,6 +1,6 @@
 {
     "name": "grunt-jsmeter",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Grunt plugin to run jsmeter to get metrics out of the code quality",
     "main": "Gruntfile.js",
     "directories": {
