@@ -66,33 +66,4 @@ describe("JSMeterTask test", function() {
         expect(task.processFiles).toHaveBeenCalled();
 
     });
-
-    it("run JSMeterTask and output to logs", function() {
-        var mock, files, task;
-
-        mock = makeMockTask();
-        mock.engine = "LogRender";
-        mock.dest = "tmp/logs";
-        task = new JSMeterTask(mock, mock, mock.files);
-
-        spyOn(task, 'run').andCallThrough();
-        task.run();
-        expect(task.run).toHaveBeenCalled();
-
-    });
-
-    it("run JSMeterTask and output html", function() {
-        var mock, files, task;
-
-        mock = makeMockTask();
-        mock.engine = "HTMLRender";
-        mock.dest = "tmp/html";
-        task = new JSMeterTask(mock, mock, mock.files);
-
-        spyOn(task, 'run').andCallThrough();
-        task.run();
-        expect(task.run).toHaveBeenCalled();
-    });
-
-
 });
