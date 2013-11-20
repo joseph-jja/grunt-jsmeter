@@ -1,25 +1,26 @@
 var grunt = require("grunt");
 
 function JSMeterTask(task, options, sources) {
-
     this.task = task;
-    this.options = options;
+    this.options = options || {};
     this.sources = sources;
 
     this.Defaults = {
         dest: 'log',
-        engine: 'console'
+        engine: 'console',
+        template: __dirname + '/../../templates/page.hbs'
     };
 
     this.dest = (!options.dest) ? this.Defaults.dest : options.dest;
     this.engine = (!options.engine) ? this.Defaults.engine : options.engine;
+    this.template = (!options.template) ? this.Defaults.template : options.template;
 }
 
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
         writer, outputfile, dest,
-        Render;
+        Render, template;
 
     try {
         Render = (this.engine === 'console') ? require("./ConsoleRender") : require("./" + this.engine);
@@ -32,6 +33,7 @@ JSMeterTask.prototype.run = function() {
     }
 
     dest = this.dest;
+    template = this.template;
     if (!this.sources) {
         console.log("No files to meter!");
         return;
@@ -49,12 +51,12 @@ JSMeterTask.prototype.run = function() {
             filename = f.src[i];
             data = grunt.file.read(filename);
             // hmm this line sometimes has an exception and returns undefines?
-            results = meter.run(data);
+            results = meter.run(data, filename);
             if (this.engine !== 'console') {
                 outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
                 writer.setFilename(outputfile);
             }
-            writer.writeResults(results);
+            writer.writeResults(results, template);
         }
     });
 

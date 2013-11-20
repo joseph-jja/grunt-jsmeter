@@ -1,8 +1,7 @@
 var BaseRender = require("./BaseRender");
 var grunt = require("grunt");
-var page = require("../../templates/page");
-var cell = require("../../templates/cell");
-var row = require("../../templates/row");
+var fs = require('fs');
+var hbs = require("handlebars");
 
 function HTMLRender() {
 
@@ -20,43 +19,49 @@ HTMLRender.prototype.getFileExtension = function() {
     return this.ext;
 };
 
-HTMLRender.prototype.writeline = function(name, value) {
+BaseRender.prototype.renderRow = function(result, j) {
 
-    var data = cell["templates/cell.tmpl"]({
-        'value': value
-    });
+    var name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
 
-    return data;
+    return {
+        name: name,
+        lineStart: result[j].lineStart,
+        statements: result[j].s,
+        lines: result[j].lines,
+        comments: result[j].comments,
+        commentsPercent: (Math.round(result[j].comments / (result[j].lines) * 10000) / 100) + "%",
+        branches: result[j].b,
+        depth: result[j].branchDepth,
+        complexity: result[j].complexity,
+        halsteadVolume: result[j].halsteadVolume,
+        halsteadPotential: result[j].halsteadPotential,
+        progLevel: result[j].halsteadLevel,
+        miVolume: result[j].mi
+    };
 };
 
 HTMLRender.prototype.processResults = function(jsmeterResult) {
 
-    var name, resultData = "",
-        metered,
+    var resultData = [],
         result, j, len;
 
     result = jsmeterResult;
     len = result.length;
 
     for (j = 0; j < len; j += 1) {
-
-        metered = this.renderRow(result, j);
-        resultData += row["templates/row.tmpl"]({
-            'rowData': metered
-        });
-
+        resultData.push(this.renderRow(result, j));
     }
     return resultData;
 };
 
-HTMLRender.prototype.writeResults = function(jsmeterResult) {
-    var result, tableData = this.processResults(jsmeterResult);
+HTMLRender.prototype.writeResults = function(jsmeterResult, template) {
+    var result, tableData = this.processResults(jsmeterResult)
+    var template = hbs.compile(fs.readFileSync(template, 'utf-8'));
 
-    result = page["templates/page.tmpl"]({
+    result = template({
         'filename': this.logfile,
-        'tableData': tableData
+        'data': tableData
     });
-
     grunt.file.write(this.logfile, result);
 };
 
