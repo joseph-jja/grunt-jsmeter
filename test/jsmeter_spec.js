@@ -12,9 +12,9 @@ describe("JSMeterTask test", function() {
             _taskOptions: {
                 engine: "console"
             },
-            files: {
-                src: ["tasks/**/*.js", "tasks/lib/**/*.js"]
-            },
+            files: [{
+                src: grunt.file.expand({}, "tasks/**/*.js")
+            }],
             engine: 'console',
             options: function(defs) {
                 return _.defaults(this._taskOptions, defs);
@@ -45,7 +45,7 @@ describe("JSMeterTask test", function() {
         var mock, task, files, actual;
 
         mock = makeMockTask();
-        task = new JSMeterTask(mock, mock, mock.options.files);
+        task = new JSMeterTask(mock, mock, mock.files);
         actual = task.options;
 
         expect(actual).toNotEqual(undefined);
@@ -56,11 +56,14 @@ describe("JSMeterTask test", function() {
         var mock, files, task;
 
         mock = makeMockTask();
-        task = new JSMeterTask(mock, mock, mock.options.files);
+        console.log(mock.files);
+        task = new JSMeterTask(mock, mock, mock.files);
 
         spyOn(task, 'run').andCallThrough();
+        spyOn(task, 'processFiles').andCallThrough();
         task.run();
         expect(task.run).toHaveBeenCalled();
+        expect(task.processFiles).toHaveBeenCalled();
 
     });
 
@@ -68,12 +71,27 @@ describe("JSMeterTask test", function() {
         var mock, files, task;
 
         mock = makeMockTask();
-        task = new JSMeterTask(mock, mock, mock.options.files);
+        mock.engine = "LogRender";
+        mock.dest = "tmp/logs";
+        task = new JSMeterTask(mock, mock, mock.files);
 
         spyOn(task, 'run').andCallThrough();
         task.run();
         expect(task.run).toHaveBeenCalled();
 
+    });
+
+    it("run JSMeterTask and output html", function() {
+        var mock, files, task;
+
+        mock = makeMockTask();
+        mock.engine = "HTMLRender";
+        mock.dest = "tmp/html";
+        task = new JSMeterTask(mock, mock, mock.files);
+
+        spyOn(task, 'run').andCallThrough();
+        task.run();
+        expect(task.run).toHaveBeenCalled();
     });
 
 
