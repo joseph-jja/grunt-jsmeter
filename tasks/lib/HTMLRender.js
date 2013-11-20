@@ -72,14 +72,14 @@ HTMLRender.prototype.writeResults = function(jsmeterResult) {
     grunt.file.write(this.logfile, result);
 };
 
-HTMLRender.prototype.buildIndex(fileList) { 
-	var result;
-	
-	result = this.indexTemplate({
+HTMLRender.prototype.buildIndex = function(fileList) {
+
+    var result;
+
+    result = this.indexTemplate({
         'filelist': fileList
     });
-    grunt.file.write(this.logfile, result);	
-
+    console.log("Processed:" + result);
 };
 
 module.exports = HTMLRender;
