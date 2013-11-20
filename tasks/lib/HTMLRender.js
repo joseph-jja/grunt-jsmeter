@@ -58,6 +58,10 @@ HTMLRender.prototype.setTemplate = function(template) {
     this.template = hbs.compile(fs.readFileSync(template, 'utf-8'));
 };
 
+HTMLRender.prototype.setIndexTemplate = function(template) {
+    this.indexTemplate = hbs.compile(fs.readFileSync(template, 'utf-8'));
+};
+
 HTMLRender.prototype.writeResults = function(jsmeterResult) {
     var result, tableData = this.processResults(jsmeterResult);
 
@@ -66,6 +70,16 @@ HTMLRender.prototype.writeResults = function(jsmeterResult) {
         'data': tableData
     });
     grunt.file.write(this.logfile, result);
+};
+
+HTMLRender.prototype.buildIndex(fileList) { 
+	var result;
+	
+	result = this.indexTemplate({
+        'filelist': fileList
+    });
+    grunt.file.write(this.logfile, result);	
+
 };
 
 module.exports = HTMLRender;

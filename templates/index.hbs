@@ -1,46 +1,13 @@
 <html>
 <title>{{filename}}</title>
 <style type="text/css">
-  table { border: 1px solid black; }
-  tr { border: 1px solid black; }
-  td { border: 1px solid black; }
+  
 </style>
 <body>
-{{filename}}
-<table>
-<tr>
-<td>line start</td>
-<td>name</td>
-<td>statements</td>
-<td>lines</td>
-<td>comments</td>
-<td>% comments</td>
-<td>branches</td>
-<td>depth</td>
-<td>complexity</td>
-<td>Halstead Volume</td>
-<td>Halstead Potential</td>
-<td>Program Level</td>
-<td>MI Volume</td>
-</tr>
-    {{#data}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{lineStart}}</td>
-            <td>{{statements}}</td>
-            <td>{{lines}}</td>
-            <td>{{comments}}</td>
-            <td>{{commentsPercent}}</td>
-            <td>{{branches}}</td>
-            <td>{{depth}}</td>
-            <td>{{complexity}}</td>
-            <td>{{halsteadVolume}}</td>
-            <td>{{halsteadPotential}}</td>
-            <td>{{progLevel}}</td>
-            <td>{{miVolume}}</td>
-        <tr>
-    {{/data}}
-</table>
+{{#each filelist}}
+<br><a href="">{{this}}</a>
+{{/each}}
+
 
 <body>
 </html>
