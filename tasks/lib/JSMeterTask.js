@@ -29,7 +29,7 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer) {
         filename = f.src[i];
         data = grunt.file.read(filename);
         data = data.trim();
-        if (data && data !== null && data.length > 0) {   
+        if (data && data !== null && data.length > 0) {
             // jsmeter sometimes has an exception and returns undefined
             // not much we can do about it
             results = meter.run(data, filename);
@@ -41,7 +41,7 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer) {
                 }
                 writer.writeResults(results);
             } else {
-            	console.log("Could not run jsmeter on file: " + filename);
+                console.log("Could not run jsmeter on file: " + filename);
             }
         }
     }
@@ -52,7 +52,8 @@ JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
         writer, outputfile, dest,
-        Render, template, allFiles = [], self;
+        Render, template, allFiles = [],
+        self;
 
     try {
         Render = (this.engine === 'console') ? require("./ConsoleRender") : require("./" + this.engine);
@@ -76,7 +77,7 @@ JSMeterTask.prototype.run = function() {
     writer.setTemplate(this.template);
     writer.setIndexTemplate(this.indexTemplate);
 
-	self = this;
+    self = this;
     this.sources.forEach(function(f) {
 
         allFiles.concat(self.processFiles(f, meter, writer));
