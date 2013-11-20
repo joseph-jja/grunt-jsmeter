@@ -18,11 +18,41 @@ function JSMeterTask(task, options, sources) {
     this.indexTemplate = (!options.indexTemplate) ? this.Defaults.indexTemplate : options.indexTemplate;
 }
 
+JSMeterTask.prototype.processFiles = function(f, meter, writer) {
+    var i, len, filename, data, results,
+        outputfile, dest, allFiles = [];
+
+    dest = this.dest;
+    len = f.src.length;
+
+    for (i = 0; i < len; i += 1) {
+        filename = f.src[i];
+        data = grunt.file.read(filename);
+        data = data.trim();
+        if (data && data !== null && data.length > 0) {   
+            // jsmeter sometimes has an exception and returns undefined
+            // not much we can do about it
+            results = meter.run(data, filename);
+            if (results && results !== null && results.length > 0) {
+                allFiles.push(filename);
+                if (this.engine !== 'console') {
+                    outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
+                    writer.setFilename(outputfile);
+                }
+                writer.writeResults(results);
+            } else {
+            	console.log("Could not run jsmeter on file: " + filename);
+            }
+        }
+    }
+    return allFiles;
+};
+
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
         writer, outputfile, dest,
-        Render, template, allFiles = [];
+        Render, template, allFiles = [], self;
 
     try {
         Render = (this.engine === 'console') ? require("./ConsoleRender") : require("./" + this.engine);
@@ -46,23 +76,10 @@ JSMeterTask.prototype.run = function() {
     writer.setTemplate(this.template);
     writer.setIndexTemplate(this.indexTemplate);
 
+	self = this;
     this.sources.forEach(function(f) {
-        var data, results, len, filename, i;
 
-        len = f.src.length;
-
-        for (i = 0; i < len; i += 1) {
-            filename = f.src[i];
-            allFiles.push(filename);
-            data = grunt.file.read(filename);
-            // hmm this line sometimes has an exception and returns undefines?
-            results = meter.run(data, filename);
-            if (this.engine !== 'console') {
-                outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
-                writer.setFilename(outputfile);
-            }
-            writer.writeResults(results);
-        }
+        allFiles.concat(self.processFiles(f, meter, writer));
 
     });
     // build an index

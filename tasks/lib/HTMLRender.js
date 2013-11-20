@@ -73,12 +73,13 @@ HTMLRender.prototype.writeResults = function(jsmeterResult) {
 };
 
 HTMLRender.prototype.buildIndex = function(dest, fileList) {
-    var result, files = [], i, fname;
+    var result, files = [],
+        i, fname;
 
-	for ( i = 0; i < fileList.length; i+=1 ) { 
-		fname = fileList[i];
-		files.push(fname.substring(fname.lastIndexOf("/")+1) + ".html");
-	}
+    for (i = 0; i < fileList.length; i += 1) {
+        fname = fileList[i];
+        files.push(fname.substring(fname.lastIndexOf("/") + 1) + ".html");
+    }
     result = this.indexTemplate({
         'filelist': files
     });
