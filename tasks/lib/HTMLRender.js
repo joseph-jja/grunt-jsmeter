@@ -19,7 +19,7 @@ HTMLRender.prototype.getFileExtension = function() {
     return this.ext;
 };
 
-BaseRender.prototype.renderRow = function(result, j) {
+HTMLRender.prototype.renderRow = function(result, j) {
 
     var name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
 
@@ -55,10 +55,10 @@ HTMLRender.prototype.processResults = function(jsmeterResult) {
 };
 
 HTMLRender.prototype.writeResults = function(jsmeterResult, template) {
-    var result, tableData = this.processResults(jsmeterResult)
-    var template = hbs.compile(fs.readFileSync(template, 'utf-8'));
+    var result, tableData = this.processResults(jsmeterResult),
+        hbrsTemplate = hbs.compile(fs.readFileSync(template, 'utf-8'));
 
-    result = template({
+    result = hbrsTemplate({
         'filename': this.logfile,
         'data': tableData
     });
