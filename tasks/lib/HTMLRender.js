@@ -54,11 +54,14 @@ HTMLRender.prototype.processResults = function(jsmeterResult) {
     return resultData;
 };
 
-HTMLRender.prototype.writeResults = function(jsmeterResult, template) {
-    var result, tableData = this.processResults(jsmeterResult),
-        hbrsTemplate = hbs.compile(fs.readFileSync(template, 'utf-8'));
+HTMLRender.prototype.setTemplate = function(template) {
+    this.template = hbs.compile(fs.readFileSync(template, 'utf-8'));
+};
 
-    result = hbrsTemplate({
+HTMLRender.prototype.writeResults = function(jsmeterResult) {
+    var result, tableData = this.processResults(jsmeterResult);
+
+    result = this.template({
         'filename': this.logfile,
         'data': tableData
     });

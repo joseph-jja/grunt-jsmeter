@@ -4,11 +4,21 @@
 function BaseRender() {
     this.filename = "";
     this.ext = "";
+    this.template = "";
+    this.indexTemplate = "";
 }
 
 // set a filename
 BaseRender.prototype.setFilename = function(filename) {
     this.filename = filename;
+};
+
+BaseRender.prototype.setTemplate = function(template) {
+    this.template = template;
+};
+
+BaseRender.prototype.setIndexTemplate = function(template) {
+    this.indexTemplate = template;
 };
 
 // get set file extension
@@ -66,6 +76,17 @@ BaseRender.prototype.processResults = function(jsmeterResult) {
 BaseRender.prototype.writeResults = function(jsmeterResult) {
 
     console.log(this.processResults(jsmeterResult));
+
+};
+
+BaseRender.prototype.buildIndex = function(fileList) {
+    var i;
+
+    for (i = 0; i < fileList.length; i += 1) {
+
+        console.log("Processed:" + fileList[i]);
+
+    }
 
 };
 

@@ -8,19 +8,21 @@ function JSMeterTask(task, options, sources) {
     this.Defaults = {
         dest: 'log',
         engine: 'console',
-        template: __dirname + '/../../templates/page.hbs'
+        template: __dirname + '/../../templates/page.hbs',
+        indexTemplate: __dirname + '/../../templates/index.hbs',
     };
 
     this.dest = (!options.dest) ? this.Defaults.dest : options.dest;
     this.engine = (!options.engine) ? this.Defaults.engine : options.engine;
     this.template = (!options.template) ? this.Defaults.template : options.template;
+    this.indexTemplate = (!options.indexTemplate) ? this.Defaults.indexTemplate : options.indexTemplate;
 }
 
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
         writer, outputfile, dest,
-        Render, template;
+        Render, template, allFiles = [];
 
     try {
         Render = (this.engine === 'console') ? require("./ConsoleRender") : require("./" + this.engine);
@@ -41,6 +43,8 @@ JSMeterTask.prototype.run = function() {
     meter = jsmeter['jsmeter'];
 
     writer = new Render();
+    writer.setTemplate(this.template);
+    writer.setIndexTemplate(this.indexTemplate);
 
     this.sources.forEach(function(f) {
         var data, results, len, filename, i;
@@ -49,6 +53,7 @@ JSMeterTask.prototype.run = function() {
 
         for (i = 0; i < len; i += 1) {
             filename = f.src[i];
+            allFiles.push(filename);
             data = grunt.file.read(filename);
             // hmm this line sometimes has an exception and returns undefines?
             results = meter.run(data, filename);
@@ -56,10 +61,12 @@ JSMeterTask.prototype.run = function() {
                 outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
                 writer.setFilename(outputfile);
             }
-            writer.writeResults(results, template);
+            writer.writeResults(results);
         }
-    });
 
+    });
+    // build an index
+    writer.buildIndex(allFiles);
 };
 
 // Some static task information
