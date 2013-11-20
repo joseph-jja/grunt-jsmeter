@@ -76,13 +76,18 @@ module.exports = function(grunt) {
                 options: {
                     dest: 'console'
                 },
-                files: '<%= jshint.all %>'
+                files: {
+                    src: '<%=jshint.files %>'
+                }
             },
             custom_options: {
                 options: {
-                    dest: 'log/jsmeter'
+                    dest: 'logs/jsmeter',
+                    engine: 'HTMLRender'
                 },
-                files: '<%= jshint.all %>'
+                files: {
+                    src: '<%=jshint.files %>'
+                }
             },
         },
 
@@ -123,6 +128,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'jasmine_node']);
 
     // By default, lint and run all tests.
-    grunt.registerTask('default', ['handlebars', 'jsbeautifier', 'jshint', 'test']);
+    grunt.registerTask('default', ['handlebars', 'jsbeautifier', 'jshint', 'jsmeter', 'test']);
 
 };
