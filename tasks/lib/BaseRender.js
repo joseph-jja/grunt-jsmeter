@@ -79,7 +79,7 @@ BaseRender.prototype.writeResults = function(jsmeterResult) {
 
 };
 
-BaseRender.prototype.buildIndex = function(fileList) {
+BaseRender.prototype.buildIndex = function(dest, fileList) {
     var i;
 
     for (i = 0; i < fileList.length; i += 1) {

@@ -66,7 +66,7 @@ JSMeterTask.prototype.run = function() {
 
     });
     // build an index
-    writer.buildIndex(allFiles);
+    writer.buildIndex(dest, allFiles);
 };
 
 // Some static task information
