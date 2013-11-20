@@ -77,7 +77,7 @@ HTMLRender.prototype.buildIndex = function(dest, fileList) {
 
 	for ( i = 0; i < fileList.length; i+=1 ) { 
 		fname = fileList[i];
-		files.push(fname.substring(fname.lastIndexOf("/")+1));
+		files.push(fname.substring(fname.lastIndexOf("/")+1) + ".html");
 	}
     result = this.indexTemplate({
         'filelist': files
