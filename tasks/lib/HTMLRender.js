@@ -65,8 +65,6 @@ HTMLRender.prototype.setIndexTemplate = function(template) {
 HTMLRender.prototype.writeResults = function(jsmeterResult) {
     var result, tableData = this.processResults(jsmeterResult);
 
-    console.log(this.filename);
-
     result = this.template({
         'filename': this.filename.replace(this.dest + "/", ""),
         'data': tableData
@@ -82,6 +80,7 @@ HTMLRender.prototype.buildIndex = function(fileList) {
         fname = fileList[i];
         files.push(fname.substring(fname.lastIndexOf("/") + 1) + ".html");
     }
+    files = files.sort();
     result = this.indexTemplate({
         'filelist': files
     });
