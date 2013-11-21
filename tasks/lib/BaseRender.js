@@ -7,8 +7,6 @@ function BaseRender() {
     this.template = "";
     this.indexTemplate = "";
     this.dest = "";
-    this.rowPrefix = "";
-    this.rowSuffix = "";
 }
 
 /* setters start */
@@ -44,45 +42,30 @@ BaseRender.prototype.formatName = function(name) {
 };
 
 BaseRender.prototype.formatCommentPercent = function(comments, lines) {
-	var pct = 0;
-	if ( lines !== 0 ) {
-		pct = Math.round(comments / (lines) * 10000) / 100) + "%";
-	} 
-	return pct;
-};
-
-// set the formatting of a line
-BaseRender.prototype.formatLine = function(name, value) {
-
-    var leadingSpace = "";
-
-    if (name !== "name") {
-        leadingSpace = " ";
+    var pct = 0;
+    if (lines !== 0) {
+        pct = Math.round(comments / (lines) * 10000) / 100 + "%";
     }
-
-    return leadingSpace + name + ": " + value + "\n";
-
+    return pct;
 };
 
 BaseRender.prototype.renderRow = function(result, j) {
 
     var name, resultData = "";
 
-    resultData = this.rowPrefix;
-    resultData += this.formatLine("line start", result[j].lineStart);
-    resultData += this.formatLine("name", this.formatName(result[j].name));
-    resultData += this.formatLine("statements", result[j].s);
-    resultData += this.formatLine("lines     ", result[j].lines);
-    resultData += this.formatLine("comments  ", result[j].comments);
-    resultData += this.formatLine("% comments  ", formatCommentPercent(result[j].comments, result[j].lines);
-    resultData += this.formatLine("branches", result[j].b);
-    resultData += this.formatLine("depth", result[j].blockDepth);
-    resultData += this.formatLine("complexity", result[j].complexity);
-    resultData += this.formatLine("Halstead Volume", result[j].halsteadVolume);
-    resultData += this.formatLine("Halstead Potential", result[j].halsteadPotential);
-    resultData += this.formatLine("Program Level", result[j].halsteadLevel);
-    resultData += this.formatLine("MI Volume", result[j].mi);
-    resultData += this.rowSuffix;
+    resultData += "name" + this.formatName(result[j].name) + "\n";
+    resultData += " line start: " + result[j].lineStart + "\n";
+    resultData += " statements: " + result[j].s + "\n";
+    resultData += " lines: " + result[j].lines + "\n";
+    resultData += " comments: " + result[j].comments + "\n";
+    resultData += " % comments: " + this.formatCommentPercent(result[j].comments, result[j].lines) + "\n";
+    resultData += " branches: " + result[j].b + "\n";
+    resultData += " depth: " + result[j].blockDepth + "\n";
+    resultData += " complexity: " + result[j].complexity + "\n";
+    resultData += " Halstead Volume: " + result[j].halsteadVolume + "\n";
+    resultData += " Halstead Potential: " + result[j].halsteadPotential + "\n";
+    resultData += " Program Level: " + result[j].halsteadLevel + "\n";
+    resultData += " MI Volume: " + result[j].mi + "\n";
 
     return resultData;
 };

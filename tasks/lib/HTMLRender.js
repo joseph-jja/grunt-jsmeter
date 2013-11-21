@@ -43,7 +43,7 @@ HTMLRender.prototype.renderRow = function(result, j) {
         statements: result[j].s,
         lines: result[j].lines,
         comments: result[j].comments,
-        commentsPercent: formatCommentPercent(result[j].comments, result[j].lines),
+        commentsPercent: this.formatCommentPercent(result[j].comments, result[j].lines),
         branches: result[j].b,
         depth: result[j].blockDepth,
         complexity: result[j].complexity,
