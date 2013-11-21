@@ -21,15 +21,15 @@ HTMLRender.prototype.getFileExtension = function() {
 
 HTMLRender.prototype.renderRow = function(result, j) {
 
-    var complexityCSS, name; 
-    
+    var complexityCSS, name;
+
     name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
 
-	complexityCSS = ( j%2 == 0 ) ? 'odd': 'even';
-	complexityCSS += ( result[j].complexity > 10 ) ? " complex": "";
+    complexityCSS = (j % 2 === 0) ? 'odd' : 'even';
+    complexityCSS += (result[j].complexity > 10) ? " complex" : "";
 
     return {
-    	cssClassName: complexityCSS,
+        cssClassName: complexityCSS,
         name: name,
         lineStart: result[j].lineStart,
         statements: result[j].s,
