@@ -24,6 +24,7 @@ HTMLRender.prototype.renderRow = function(result, j) {
     var name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
 
     return {
+    	cssClassName: ( j%2 == 0 ) ? 'odd': 'even',
         name: name,
         lineStart: result[j].lineStart,
         statements: result[j].s,

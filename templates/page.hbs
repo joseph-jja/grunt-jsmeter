@@ -4,6 +4,8 @@
   table { border: 1px solid black; }
   tr { border: 1px solid black; }
   td { border: 1px solid black; }
+  tr.odd { background: #ffe87c; }
+  tr.even {  }
 </style>
 <body>
 Source file: {{filename}}
@@ -25,7 +27,7 @@ Source file: {{filename}}
 <td>MI Volume</td>
 </tr>
     {{#data}}
-        <tr>
+        <tr class="{{cssClassName}}">
             <td>{{name}}</td>
             <td>{{lineStart}}</td>
             <td>{{statements}}</td>
