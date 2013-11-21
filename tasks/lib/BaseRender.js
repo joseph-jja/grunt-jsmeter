@@ -7,6 +7,8 @@ function BaseRender() {
     this.template = "";
     this.indexTemplate = "";
     this.dest = "";
+    this.rowPrefix = "";
+    this.rowSuffix = "";
 }
 
 /* setters start */
@@ -48,13 +50,18 @@ BaseRender.prototype.formatLine = function(name, value) {
 
 };
 
+BaseRender.prototype.formatName = function(name) {
+    name = (name) ? name.replace(/^\[\[[^\]]*\]\]\.?/, "") : name;
+    return name;
+};
+
 BaseRender.prototype.renderRow = function(result, j) {
 
     var name, resultData = "";
 
+    resultData = this.rowPrefix;
     resultData += this.formatLine("line start", result[j].lineStart);
-    name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
-    resultData += this.formatLine("name", name);
+    resultData += this.formatLine("name", this.formatName(result[j].name));
     resultData += this.formatLine("statements", result[j].s);
     resultData += this.formatLine("lines     ", result[j].lines);
     resultData += this.formatLine("comments  ", result[j].comments);
@@ -66,6 +73,7 @@ BaseRender.prototype.renderRow = function(result, j) {
     resultData += this.formatLine("Halstead Potential", result[j].halsteadPotential);
     resultData += this.formatLine("Program Level", result[j].halsteadLevel);
     resultData += this.formatLine("MI Volume", result[j].mi);
+    resultData += this.rowSuffix;
 
     return resultData;
 };

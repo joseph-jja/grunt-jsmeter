@@ -10,6 +10,7 @@ function HTMLRender() {
 
 HTMLRender.prototype = new BaseRender();
 
+/* setter overrides start */
 HTMLRender.prototype.setFilename = function(filename) {
     this.filename = filename;
 };
@@ -19,18 +20,25 @@ HTMLRender.prototype.getFileExtension = function() {
     return this.ext;
 };
 
+HTMLRender.prototype.setTemplate = function(template) {
+    this.template = hbs.compile(fs.readFileSync(template, 'utf-8'));
+};
+
+HTMLRender.prototype.setIndexTemplate = function(template) {
+    this.indexTemplate = hbs.compile(fs.readFileSync(template, 'utf-8'));
+};
+/* setter overrides end */
+
 HTMLRender.prototype.renderRow = function(result, j) {
 
-    var complexityCSS, name;
-
-    name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
+    var complexityCSS;
 
     complexityCSS = (j % 2 === 0) ? 'odd' : 'even';
     complexityCSS += (result[j].complexity > 10) ? " complex" : "";
 
     return {
         cssClassName: complexityCSS,
-        name: name,
+        name: this.formatName(result[j].name),
         lineStart: result[j].lineStart,
         statements: result[j].s,
         lines: result[j].lines,
@@ -58,14 +66,6 @@ HTMLRender.prototype.processResults = function(jsmeterResult) {
         resultData.push(this.renderRow(result, j));
     }
     return resultData;
-};
-
-HTMLRender.prototype.setTemplate = function(template) {
-    this.template = hbs.compile(fs.readFileSync(template, 'utf-8'));
-};
-
-HTMLRender.prototype.setIndexTemplate = function(template) {
-    this.indexTemplate = hbs.compile(fs.readFileSync(template, 'utf-8'));
 };
 
 HTMLRender.prototype.writeResults = function(jsmeterResult) {
