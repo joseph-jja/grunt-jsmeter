@@ -9,7 +9,7 @@ function JSMeterTask(task, options, sources) {
         dest: 'log',
         engine: 'console',
         template: __dirname + '/../../templates/page.hbs',
-        indexTemplate: __dirname + '/../../templates/index.hbs',
+        indexTemplate: __dirname + '/../../templates/index.hbs'
     };
 
     this.dest = (!options.dest) ? this.Defaults.dest : options.dest;

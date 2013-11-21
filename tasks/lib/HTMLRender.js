@@ -29,6 +29,7 @@ HTMLRender.prototype.setIndexTemplate = function(template) {
 };
 /* setter overrides end */
 
+// overrides parent so that we can render json instead of a string
 HTMLRender.prototype.renderRow = function(result, j) {
 
     var complexityCSS;
