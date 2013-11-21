@@ -56,6 +56,20 @@ Default value: `'console'`
 A string value that is used to identify the engine to render the output.  
 The default is console.  Alternative renders available are LogRender.
 
+#### options.template
+Type: `String`
+Default value: `'none'`
+
+A string value that is used to identify the handlebars template that should be used
+to render each page. The default template is templates/page.hbs.
+
+#### options.indexTemplate
+Type: `String`
+Default value: `'none'`
+
+A string value that is used to identify the handlebars template that should be used
+to render each page. The default template is templates/index.hbs.
+
 ### Usage Examples
 
 #### Default Options
