@@ -1,6 +1,6 @@
 # grunt-jsmeter
 
-> Grunt plugin to run jsmeter to get metrics out of the code quality
+> Grunt plugin to run jsmeter to get metrics out of the code quality ( jsmeter can be found https://code.google.com/p/jsmeter/ ).  This is a grunt plugin to enable generating reports out of the jsmeter npm module.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
