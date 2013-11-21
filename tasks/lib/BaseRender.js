@@ -43,6 +43,14 @@ BaseRender.prototype.formatName = function(name) {
     return name;
 };
 
+BaseRender.prototype.formatCommentPercent = function(comments, lines) {
+	var pct = 0;
+	if ( lines !== 0 ) {
+		pct = Math.round(comments / (lines) * 10000) / 100) + "%";
+	} 
+	return pct;
+};
+
 // set the formatting of a line
 BaseRender.prototype.formatLine = function(name, value) {
 
@@ -66,7 +74,7 @@ BaseRender.prototype.renderRow = function(result, j) {
     resultData += this.formatLine("statements", result[j].s);
     resultData += this.formatLine("lines     ", result[j].lines);
     resultData += this.formatLine("comments  ", result[j].comments);
-    resultData += this.formatLine("% comments  ", Math.round(result[j].comments / (result[j].lines) * 10000) / 100, "%");
+    resultData += this.formatLine("% comments  ", formatCommentPercent(result[j].comments, result[j].lines);
     resultData += this.formatLine("branches", result[j].b);
     resultData += this.formatLine("depth", result[j].blockDepth);
     resultData += this.formatLine("complexity", result[j].complexity);
