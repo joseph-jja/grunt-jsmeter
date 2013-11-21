@@ -31,7 +31,7 @@ HTMLRender.prototype.renderRow = function(result, j) {
         comments: result[j].comments,
         commentsPercent: (Math.round(result[j].comments / (result[j].lines) * 10000) / 100) + "%",
         branches: result[j].b,
-        depth: result[j].branchDepth,
+        depth: result[j].blockDepth,
         complexity: result[j].complexity,
         halsteadVolume: result[j].halsteadVolume,
         halsteadPotential: result[j].halsteadPotential,
