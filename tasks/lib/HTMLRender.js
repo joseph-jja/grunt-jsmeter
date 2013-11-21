@@ -57,13 +57,12 @@ HTMLRender.prototype.renderRow = function(result, j) {
 HTMLRender.prototype.processResults = function(jsmeterResult) {
 
     var resultData = [],
-        result, j, len;
+        j, len;
 
-    result = jsmeterResult;
-    len = result.length;
+    len = jsmeterResult.length;
 
     for (j = 0; j < len; j += 1) {
-        resultData.push(this.renderRow(result, j));
+        resultData.push(this.renderRow(jsmeterResult, j));
     }
     return resultData;
 };

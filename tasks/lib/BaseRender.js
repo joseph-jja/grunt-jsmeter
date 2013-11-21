@@ -37,6 +37,12 @@ BaseRender.prototype.getFileExtension = function() {
 /* setters end */
 
 /* processing start */
+// format the name of the function
+BaseRender.prototype.formatName = function(name) {
+    name = (name) ? name.replace(/^\[\[[^\]]*\]\]\.?/, "") : name;
+    return name;
+};
+
 // set the formatting of a line
 BaseRender.prototype.formatLine = function(name, value) {
 
@@ -48,11 +54,6 @@ BaseRender.prototype.formatLine = function(name, value) {
 
     return leadingSpace + name + ": " + value + "\n";
 
-};
-
-BaseRender.prototype.formatName = function(name) {
-    name = (name) ? name.replace(/^\[\[[^\]]*\]\]\.?/, "") : name;
-    return name;
 };
 
 BaseRender.prototype.renderRow = function(result, j) {
