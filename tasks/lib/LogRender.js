@@ -17,17 +17,6 @@ LogRender.prototype.getFileExtension = function() {
     return this.ext;
 };
 
-LogRender.prototype.writeline = function(name, value) {
-    var leadingSpace = "";
-
-    if (name !== "name") {
-        leadingSpace = " ";
-    }
-
-    return leadingSpace + name + ": " + value + "\n";
-
-};
-
 LogRender.prototype.writeResults = function(jsmeterResult) {
 
     grunt.file.write(this.logfile, this.processResults(jsmeterResult));

@@ -9,6 +9,7 @@ function BaseRender() {
     this.dest = "";
 }
 
+/* setters start */
 // set a filename
 BaseRender.prototype.setDest = function(dest) {
     this.dest = dest;
@@ -31,11 +32,19 @@ BaseRender.prototype.setIndexTemplate = function(template) {
 BaseRender.prototype.getFileExtension = function() {
     return this.ext;
 };
+/* setters end */
 
+/* processing start */
 // set the formatting of a line
-BaseRender.prototype.writeline = function(name, value) {
+BaseRender.prototype.formatLine = function(name, value) {
 
-    return name + ": " + value;
+    var leadingSpace = "";
+
+    if (name !== "name") {
+        leadingSpace = " ";
+    }
+
+    return leadingSpace + name + ": " + value + "\n";
 
 };
 
@@ -43,20 +52,20 @@ BaseRender.prototype.renderRow = function(result, j) {
 
     var name, resultData = "";
 
-    resultData += this.writeline("line start", result[j].lineStart);
+    resultData += this.formatLine("line start", result[j].lineStart);
     name = (result[j].name) ? result[j].name.replace(/^\[\[[^\]]*\]\]\.?/, "") : result[j].name;
-    resultData += this.writeline("name", name);
-    resultData += this.writeline("statements", result[j].s);
-    resultData += this.writeline("lines     ", result[j].lines);
-    resultData += this.writeline("comments  ", result[j].comments);
-    resultData += this.writeline("% comments  ", Math.round(result[j].comments / (result[j].lines) * 10000) / 100, "%");
-    resultData += this.writeline("branches", result[j].b);
-    resultData += this.writeline("depth", result[j].blockDepth);
-    resultData += this.writeline("complexity", result[j].complexity);
-    resultData += this.writeline("Halstead Volume", result[j].halsteadVolume);
-    resultData += this.writeline("Halstead Potential", result[j].halsteadPotential);
-    resultData += this.writeline("Program Level", result[j].halsteadLevel);
-    resultData += this.writeline("MI Volume", result[j].mi);
+    resultData += this.formatLine("name", name);
+    resultData += this.formatLine("statements", result[j].s);
+    resultData += this.formatLine("lines     ", result[j].lines);
+    resultData += this.formatLine("comments  ", result[j].comments);
+    resultData += this.formatLine("% comments  ", Math.round(result[j].comments / (result[j].lines) * 10000) / 100, "%");
+    resultData += this.formatLine("branches", result[j].b);
+    resultData += this.formatLine("depth", result[j].blockDepth);
+    resultData += this.formatLine("complexity", result[j].complexity);
+    resultData += this.formatLine("Halstead Volume", result[j].halsteadVolume);
+    resultData += this.formatLine("Halstead Potential", result[j].halsteadPotential);
+    resultData += this.formatLine("Program Level", result[j].halsteadLevel);
+    resultData += this.formatLine("MI Volume", result[j].mi);
 
     return resultData;
 };
@@ -77,7 +86,9 @@ BaseRender.prototype.processResults = function(jsmeterResult) {
     }
     return resultData;
 };
+/* processing end */
 
+/* output start */
 // write the results, override this to write to log file
 BaseRender.prototype.writeResults = function(jsmeterResult) {
 
@@ -95,5 +106,6 @@ BaseRender.prototype.buildIndex = function(fileList) {
     }
 
 };
+/* output end */
 
 module.exports = BaseRender;
