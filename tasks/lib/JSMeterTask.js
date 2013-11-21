@@ -80,7 +80,7 @@ JSMeterTask.prototype.run = function() {
     self = this;
     this.sources.forEach(function(f) {
 
-        allFiles.concat(self.processFiles(f, meter, writer));
+        allFiles = allFiles.concat(self.processFiles(f, meter, writer));
 
     });
     // build an index
