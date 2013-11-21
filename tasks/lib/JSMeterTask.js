@@ -36,7 +36,7 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer) {
             if (results && results !== null && results.length > 0) {
                 allFiles.push(filename);
                 if (this.engine !== 'console') {
-                    outputfile = dest + "/" + filename.substring(filename.lastIndexOf("/") + 1) + writer.getFileExtension();
+                    outputfile = dest + "/" + filename + writer.getFileExtension();
                     writer.setFilename(outputfile);
                 }
                 writer.writeResults(results);
@@ -51,8 +51,8 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer) {
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
-        writer, outputfile, dest,
-        Render, template, allFiles = [],
+        writer, dest,
+        Render, allFiles = [],
         self;
 
     try {
@@ -66,7 +66,6 @@ JSMeterTask.prototype.run = function() {
     }
 
     dest = this.dest;
-    template = this.template;
     if (!this.sources) {
         console.log("No files to meter!");
         return;
@@ -76,6 +75,7 @@ JSMeterTask.prototype.run = function() {
     writer = new Render();
     writer.setTemplate(this.template);
     writer.setIndexTemplate(this.indexTemplate);
+    writer.setDest(dest);
 
     self = this;
     this.sources.forEach(function(f) {
@@ -84,7 +84,7 @@ JSMeterTask.prototype.run = function() {
 
     });
     // build an index
-    writer.buildIndex(dest, allFiles);
+    writer.buildIndex(allFiles);
 };
 
 // Some static task information

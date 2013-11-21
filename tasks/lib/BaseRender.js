@@ -6,7 +6,13 @@ function BaseRender() {
     this.ext = "";
     this.template = "";
     this.indexTemplate = "";
+    this.dest = "";
 }
+
+// set a filename
+BaseRender.prototype.setDest = function(dest) {
+    this.dest = dest;
+};
 
 // set a filename
 BaseRender.prototype.setFilename = function(filename) {
@@ -79,7 +85,7 @@ BaseRender.prototype.writeResults = function(jsmeterResult) {
 
 };
 
-BaseRender.prototype.buildIndex = function(dest, fileList) {
+BaseRender.prototype.buildIndex = function(fileList) {
     var i;
 
     for (i = 0; i < fileList.length; i += 1) {

@@ -11,7 +11,7 @@ function HTMLRender() {
 HTMLRender.prototype = new BaseRender();
 
 HTMLRender.prototype.setFilename = function(filename) {
-    this.logfile = filename;
+    this.filename = filename;
 };
 
 // get set file extension
@@ -65,14 +65,16 @@ HTMLRender.prototype.setIndexTemplate = function(template) {
 HTMLRender.prototype.writeResults = function(jsmeterResult) {
     var result, tableData = this.processResults(jsmeterResult);
 
+    console.log(this.filename);
+
     result = this.template({
-        'filename': this.logfile,
+        'filename': this.filename.replace(this.dest + "/", ""),
         'data': tableData
     });
-    grunt.file.write(this.logfile, result);
+    grunt.file.write(this.dest + "/" + this.filename.substring(this.filename.lastIndexOf("/") + 1), result);
 };
 
-HTMLRender.prototype.buildIndex = function(dest, fileList) {
+HTMLRender.prototype.buildIndex = function(fileList) {
     var result, files = [],
         i, fname;
 
@@ -83,7 +85,7 @@ HTMLRender.prototype.buildIndex = function(dest, fileList) {
     result = this.indexTemplate({
         'filelist': files
     });
-    grunt.file.write(dest + "/index.html", result);
+    grunt.file.write(this.dest + "/index.html", result);
 };
 
 module.exports = HTMLRender;
