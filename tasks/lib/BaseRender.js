@@ -53,7 +53,7 @@ BaseRender.prototype.renderRow = function(result, j) {
 
     var name, resultData = "";
 
-    resultData += "name" + this.formatName(result[j].name) + "\n";
+    resultData += "name: " + this.formatName(result[j].name) + "\n";
     resultData += " line start: " + result[j].lineStart + "\n";
     resultData += " statements: " + result[j].s + "\n";
     resultData += " lines: " + result[j].lines + "\n";
