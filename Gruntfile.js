@@ -93,6 +93,7 @@ module.exports = function(grunt) {
 
         // Unit tests.
         jasmine_node: {
+            src: 'tasks/**/**.js',
             options: {
                 specNameMatcher: ".*_spec*", // load only specs containing specNameMatcher
                 projectRoot: ".",
