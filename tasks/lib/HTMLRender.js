@@ -11,15 +11,6 @@ function HTMLRender() {
 HTMLRender.prototype = new BaseRender();
 
 /* setter overrides start */
-HTMLRender.prototype.setFilename = function(filename) {
-    this.filename = filename;
-};
-
-// get set file extension
-HTMLRender.prototype.getFileExtension = function() {
-    return this.ext;
-};
-
 HTMLRender.prototype.setTemplate = function(template) {
     this.template = hbs.compile(fs.readFileSync(template, 'utf-8'));
 };
@@ -36,6 +27,10 @@ HTMLRender.prototype.renderRow = function(result, j) {
 
     complexityCSS = (j % 2 === 0) ? 'odd' : 'even';
     complexityCSS += (result[j].complexity > 10) ? " complex" : "";
+
+    if (result[j].complexity > this.complexityLevel) {
+        this.isComplex = true;
+    }
 
     return {
         cssClassName: complexityCSS,
@@ -80,13 +75,27 @@ HTMLRender.prototype.writeResults = function(jsmeterResult) {
 
 HTMLRender.prototype.buildIndex = function(fileList) {
     var result, files = [],
-        i, fname;
+        i, fname, complex = "";
 
-    for (i = 0; i < fileList.length; i += 1) {
-        fname = fileList[i];
-        files.push(fname.substring(fname.lastIndexOf("/") + 1) + ".html");
+    for (i in fileList) {
+        fname = i;
+        complex = "";
+        if (fileList[i] === true) {
+            complex = " has a higher complexity level than " + this.complexity + ".";
+        }
+        files.push({
+            'filename': fname.substring(fname.lastIndexOf("/") + 1) + ".html",
+            'complexity': complex
+        });
     }
-    files = files.sort();
+    files = files.sort(function(a, b) {
+        if (a.filename > b.filename) {
+            return 1;
+        } else if (a.filename < b.filename) {
+            return -1;
+        }
+        return 0;
+    });
     result = this.indexTemplate({
         'filelist': files
     });

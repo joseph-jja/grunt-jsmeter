@@ -7,6 +7,8 @@ function BaseRender() {
     this.template = "";
     this.indexTemplate = "";
     this.dest = "";
+    this.complexityLevel = 10;
+    this.isComplex = false;
 }
 
 /* setters start */
@@ -18,6 +20,7 @@ BaseRender.prototype.setDest = function(dest) {
 // set a filename
 BaseRender.prototype.setFilename = function(filename) {
     this.filename = filename;
+    this.isComplex = false;
 };
 
 BaseRender.prototype.setTemplate = function(template) {
@@ -67,6 +70,10 @@ BaseRender.prototype.renderRow = function(result, j) {
     resultData += " Program Level: " + result[j].halsteadLevel + "\n";
     resultData += " MI Volume: " + result[j].mi + "\n";
 
+    if (result[j].complexity > this.complexityLevel) {
+        this.isComplex = true;
+    }
+
     return resultData;
 };
 
@@ -99,9 +106,9 @@ BaseRender.prototype.writeResults = function(jsmeterResult) {
 BaseRender.prototype.buildIndex = function(fileList) {
     var i;
 
-    for (i = 0; i < fileList.length; i += 1) {
+    for (i in fileList) {
 
-        console.log("Processed:" + fileList[i]);
+        console.log("Processed:" + i);
 
     }
 

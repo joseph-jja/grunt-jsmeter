@@ -6,7 +6,7 @@
 <body>
 <ul>
 {{#each filelist}}
-<li><a href="{{this}}">{{this}}</a></li>
+<li><a href="{{this.filename}}">{{this.filename}}</a>{{this.complexity}}</li>
 {{/each}}
 </ul>
 

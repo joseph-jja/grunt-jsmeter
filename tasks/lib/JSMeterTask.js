@@ -9,18 +9,20 @@ function JSMeterTask(task, options, sources) {
         dest: 'log',
         engine: 'console',
         template: __dirname + '/../../templates/page.hbs',
-        indexTemplate: __dirname + '/../../templates/index.hbs'
+        indexTemplate: __dirname + '/../../templates/index.hbs',
+        complexityLevel: 10
     };
 
     this.dest = (!options.dest) ? this.Defaults.dest : options.dest;
     this.engine = (!options.engine) ? this.Defaults.engine : options.engine;
     this.template = (!options.template) ? this.Defaults.template : options.template;
     this.indexTemplate = (!options.indexTemplate) ? this.Defaults.indexTemplate : options.indexTemplate;
+    this.complexityLevel = (!options.complexityLevel) ? this.Defaults.complexityLevel : options.complexityLevel;
 }
 
-JSMeterTask.prototype.processFiles = function(f, meter, writer) {
+JSMeterTask.prototype.processFiles = function(f, meter, writer, allFiles) {
     var i, len, filename, data, results,
-        outputfile, dest, allFiles = [];
+        outputfile, dest;
 
     dest = this.dest;
     len = f.src.length;
@@ -34,12 +36,13 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer) {
             // not much we can do about it
             results = meter.run(data, filename);
             if (results && results !== null && results.length > 0) {
-                allFiles.push(filename);
                 if (this.engine !== 'console') {
                     outputfile = dest + "/" + filename + writer.getFileExtension();
                     writer.setFilename(outputfile);
                 }
                 writer.writeResults(results);
+                allFiles[filename] = writer.isComplex;
+
             } else {
                 console.log("Could not run jsmeter on file: " + filename);
             }
@@ -52,7 +55,7 @@ JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
         writer, dest,
-        Render, allFiles = [],
+        Render, allFiles = {},
         self;
 
     try {
@@ -76,11 +79,12 @@ JSMeterTask.prototype.run = function() {
     writer.setTemplate(this.template);
     writer.setIndexTemplate(this.indexTemplate);
     writer.setDest(dest);
+    writer.complexityLevel = this.complexityLevel;
 
     self = this;
     this.sources.forEach(function(f) {
 
-        allFiles = allFiles.concat(self.processFiles(f, meter, writer));
+        self.processFiles(f, meter, writer, allFiles);
 
     });
     // build an index
