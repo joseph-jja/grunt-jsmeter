@@ -52,6 +52,13 @@ BaseRender.prototype.formatCommentPercent = function(comments, lines) {
     return pct;
 };
 
+BaseRender.prototype.checkComplexity = function(complexity) {
+
+    if (complexity > this.complexityLevel) {
+        this.isComplex = true;
+    }
+};
+
 BaseRender.prototype.renderRow = function(result, j) {
 
     var name, resultData = "";
@@ -70,9 +77,7 @@ BaseRender.prototype.renderRow = function(result, j) {
     resultData += " Program Level: " + result[j].halsteadLevel + "\n";
     resultData += " MI Volume: " + result[j].mi + "\n";
 
-    if (result[j].complexity > this.complexityLevel) {
-        this.isComplex = true;
-    }
+    this.checkComplexity(result[j].complexity);
 
     return resultData;
 };

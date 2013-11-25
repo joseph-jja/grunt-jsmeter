@@ -25,12 +25,10 @@ HTMLRender.prototype.renderRow = function(result, j) {
 
     var complexityCSS;
 
-    complexityCSS = (j % 2 === 0) ? 'odd' : 'even';
-    complexityCSS += (result[j].complexity > 10) ? " complex" : "";
+    this.checkComplexity(result[j].complexity);
 
-    if (result[j].complexity > this.complexityLevel) {
-        this.isComplex = true;
-    }
+    complexityCSS = (j % 2 === 0) ? 'odd' : 'even';
+    complexityCSS += (result[j].complexity > this.complexity) ? " complex" : "";
 
     return {
         cssClassName: complexityCSS,
