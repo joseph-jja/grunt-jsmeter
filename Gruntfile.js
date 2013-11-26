@@ -10,7 +10,7 @@
 
 function GruntSupport(grunt) {
 
-    var ext = "tmpl",
+    var ext = "hbs",
         outExt = "js";
 
     function getFileMap(baseDir) {
@@ -132,6 +132,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'jasmine_node']);
 
     // By default, lint and run all tests.
-    grunt.registerTask('default', ['clean', 'handlebars', 'jsbeautifier', 'jshint', 'jsmeter', 'jasmine_node']);
+    grunt.registerTask('default', ['clean', 'handlebars', 'jsbeautifier', 'jshint', 'jasmine_node']);
 
 };
