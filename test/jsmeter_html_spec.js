@@ -10,12 +10,12 @@ describe("JSMeterTask test", function() {
     var makeMockTask = function(done) {
         return {
             _taskOptions: {
-                engine: "console"
+                engine: "HTMLRender"
             },
             files: [{
                 src: grunt.file.expand({}, "tasks/**/*.js")
             }],
-            engine: 'console',
+            engine: 'HTMLRender',
             options: function(defs) {
                 return _.defaults(this._taskOptions, defs);
             },
@@ -29,7 +29,6 @@ describe("JSMeterTask test", function() {
         var mock, files, task;
 
         mock = makeMockTask();
-        mock.engine = "HTMLRender";
         mock.dest = "tmp/html";
         task = new JSMeterTask(mock, mock, mock.files);
 
