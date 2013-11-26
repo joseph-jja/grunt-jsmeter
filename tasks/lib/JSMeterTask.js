@@ -1,5 +1,6 @@
 var grunt = require("grunt");
 
+// this is the main starting point of the tasks
 function JSMeterTask(task, options, sources) {
     this.task = task;
     this.options = options || {};
@@ -20,6 +21,7 @@ function JSMeterTask(task, options, sources) {
     this.complexityLevel = (!options.complexityLevel) ? this.Defaults.complexityLevel : options.complexityLevel;
 }
 
+// this processes the list of source files 
 JSMeterTask.prototype.processFiles = function(f, meter, writer, allFiles) {
     var i, len, filename, data, results,
         outputfile, dest;
@@ -51,6 +53,7 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer, allFiles) {
     return allFiles;
 };
 
+// main method to run
 JSMeterTask.prototype.run = function() {
 
     var meter, jsmeter = require("jsmeter"),
