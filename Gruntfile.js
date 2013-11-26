@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 
         // Before generating any new files, remove any previously-created files.
         clean: {
-            tests: ['tmp'],
+            tests: ['tmp', 'coverage', 'logs'],
         },
 
         jsbeautifier: {
@@ -94,19 +94,22 @@ module.exports = function(grunt) {
         // Unit tests.
         jasmine_node: {
             src: 'tasks/**/**.js',
+            projectRoot: ".",
+            specFolders: ["./test/"],
+            verbose: true,
             options: {
-                specNameMatcher: ".*_spec*", // load only specs containing specNameMatcher
-                projectRoot: ".",
+                specNameMatcher: "*_spec*", // load only specs containing specNameMatcher
                 requirejs: false,
                 forceExit: true,
                 jUnit: {
                     report: false,
-                    savePath: "./jasmine/",
+                    savePath: "./coverage/",
                     useDotNotation: true,
                     consolidate: true
                 }
             },
             coverage: {
+                //collect: ['tasks/**/**.js'],
                 report: ['html']
             }
         },
@@ -129,6 +132,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'jasmine_node']);
 
     // By default, lint and run all tests.
-    grunt.registerTask('default', ['handlebars', 'jsbeautifier', 'jshint', 'jsmeter', 'test']);
+    grunt.registerTask('default', ['clean', 'handlebars', 'jsbeautifier', 'jshint', 'jsmeter', 'jasmine_node']);
 
 };
