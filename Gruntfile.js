@@ -112,7 +112,7 @@ module.exports = function(grunt) {
                 //collect: ['tasks/**/**.js'],
                 report: ['html']
             }
-        },
+        }
 
     });
 
