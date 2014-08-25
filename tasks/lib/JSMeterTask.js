@@ -44,9 +44,6 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer, allFiles) {
                 }
                 writer.writeResults(results);
                 allFiles[filename] = writer.isComplex;
-
-            } else {
-                console.log("Could not run jsmeter on file: " + filename);
             }
         }
     }
@@ -56,7 +53,7 @@ JSMeterTask.prototype.processFiles = function(f, meter, writer, allFiles) {
 // main method to run
 JSMeterTask.prototype.run = function() {
 
-    var meter, jsmeter = require("jsmeter"),
+    var meter, jsmeter = require("../../jsmeter/jsmeter"),
         writer, dest,
         Render, allFiles = {},
         self;
