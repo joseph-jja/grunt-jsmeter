@@ -51,15 +51,18 @@ exports.make_complexity = function() {
         itself = {},
         
         sigDig = function(value, sd) {
+            if (!isFinite(value)) {
+                return null;
+            }
             if (value===0) {
                 return 0;
             }
             var z = Math.ceil(Math.log(value)/Math.log(10)),
                 v = Math.round(value * Math.pow(10, 0-z+sd)),
                 l = (""  + v).length;
-            v = v * Math.pow(10, z-sd);
+            v = v * Math.pow(10, z-sd)||0;
             if (l-z<sd) {
-                v = (""+v).substr(0,sd+1);
+                v = (""+v).substr(0,sd+1)||"";
                 if (v.indexOf(".")<0) {
                     v = v + ".";
                 }
@@ -67,7 +70,7 @@ exports.make_complexity = function() {
                     v = v + "0";
                 }
             } else if (l<=sd) {
-                v = (""+v).substr(0,l-z+2);
+                v = (""+v).substr(0,l-z+2)||"";
                 if (v.indexOf(".")<0) {
                     v = v + ".";
                 }
@@ -229,7 +232,6 @@ exports.make_complexity = function() {
         node = function(n, nn, depth) {
             
             var i;
-            var ff;
             var nm = "";
             
             if (!n) {
@@ -395,14 +397,19 @@ exports.make_complexity = function() {
         
         if (mode === "JSON") {
             for (i in fns) {
-                if (!Array[i] && !Array.prototype[i]) {
-                    fns[i].complexity = fns[i].complexityF();
-                    fns[i].mi = fns[i].miF();
-                    fns[i].halsteadLevel = fns[i].halsteadLevelF();
-                    fns[i].lines = fns[i].linesF();
-                    fns[i].commentPct = fns[i].comments / fns[i].lines;
-                    fns[i].halsteadVolume = fns[i].halsteadVolumeF();
-                    fns[i].halsteadPotential = fns[i].halsteadPotentialF();
+                try {
+                    if (!Array[i] && !Array.prototype[i]) {
+                        fns[i].complexity = fns[i].complexityF();
+                        fns[i].mi = fns[i].miF();
+                        fns[i].halsteadLevel = fns[i].halsteadLevelF();
+                        fns[i].lines = fns[i].linesF();
+                        fns[i].commentPct = fns[i].comments / fns[i].lines;
+                        fns[i].halsteadVolume = fns[i].halsteadVolumeF();
+                        fns[i].halsteadPotential = fns[i].halsteadPotentialF();
+                    }
+                } catch (ex) {
+                    console.dir(fns[i]);
+                    console.dir(ex);
                 }
             }                
             d.write(JSON.stringify(fns, null, 4));

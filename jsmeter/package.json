@@ -1,13 +1,38 @@
 {
-  "author": "Noah Peters <noahpeters@gmail.com>",
+  "author": {
+    "name": "Noah Peters",
+    "email": "noahpeters@gmail.com"
+  },
   "name": "jsmeter",
   "description": "JavaScript code metrics via static analysis",
-  "version": "1.0.0",
+  "version": "1.0.15",
   "homepage": "http://jsmeter.info",
   "repository": {
-    "url": ""
+    "url": "https://bitbucket.org/noahpeters/jsmeter.git"
   },
   "main": "jsmeter.js",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "license": "BSD",
+  "_id": "jsmeter@1.0.15",
+  "readme": "ERROR: No README.md file found!",
+  "dist": {
+    "shasum": "63707aa6d639898240c7a3762f73069bfb428529",
+    "tarball": "http://registry.npmjs.org/jsmeter/-/jsmeter-1.0.15.tgz"
+  },
+  "_npmVersion": "1.1.62",
+  "_npmUser": {
+    "name": "noahpeters",
+    "email": "noahpeters@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "noahpeters",
+      "email": "noahpeters@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "63707aa6d639898240c7a3762f73069bfb428529",
+  "_from": "jsmeter@1.0.15",
+  "_resolved": "https://registry.npmjs.org/jsmeter/-/jsmeter-1.0.15.tgz"
 }
