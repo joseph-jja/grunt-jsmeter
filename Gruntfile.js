@@ -14,7 +14,8 @@ function GruntSupport(grunt) {
         outExt = "js";
 
     function getFileMap(baseDir) {
-        var sources = {}, key;
+        var sources = {},
+            key;
 
         grunt.file.recurse(baseDir, function(abspath, rootdir, subdir, filename) {
 
