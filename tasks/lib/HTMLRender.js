@@ -28,7 +28,7 @@ HTMLRender.prototype.renderRow = function(result, j) {
     this.checkComplexity(result[j].complexity);
 
     complexityCSS = (j % 2 === 0) ? 'odd' : 'even';
-    complexityCSS += (result[j].complexity > this.complexity) ? " complex" : "";
+    complexityCSS += (result[j].complexity > this.complexityLevel) ? " complex" : "";
 
     return {
         cssClassName: complexityCSS,
@@ -79,7 +79,7 @@ HTMLRender.prototype.buildIndex = function(fileList) {
         fname = i;
         complex = "";
         if (fileList[i] === true) {
-            complex = " has a higher complexity level than " + this.complexity + ".";
+            complex = " has a higher complexity level than " + this.complexityLevel + ".";
         }
         files.push({
             'filename': fname.substring(fname.lastIndexOf("/") + 1) + ".html",
